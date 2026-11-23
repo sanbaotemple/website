@@ -41,7 +41,7 @@
       ctx.fillText(card.dataset.hint, r.width / 2, r.height / 2 + 7);
       card.classList.remove('done'); checks = 0;
     };
-    const show = () => { const x = quotes[order[at % order.length]]; q.innerHTML = ''; q.append(x.text); if (x.note) { const s = document.createElement('small'); s.textContent = x.note; q.append(s); } };
+    const show = () => { const x = quotes[order[at % order.length]]; const zh = /[\u3400-\u9fff]/.test(x.text), n = x.text.length * (zh ? 3 : 1); card.dataset.len = n < 130 ? 's' : n < 220 ? 'm' : n < 340 ? 'l' : 'xl'; q.innerHTML = ''; q.append(x.text); if (x.note) { const s = document.createElement('small'); s.textContent = x.note; q.append(s); } };
     const erase = e => {
       if (!drawing) return; const r = cv.getBoundingClientRect();
       ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(e.clientX - r.left, e.clientY - r.top, 26, 0, Math.PI * 2); ctx.fill();

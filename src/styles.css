@@ -636,3 +636,11 @@ footer.site a,footer.site p,footer.site li{font-weight:500}
   .band .media img{position:static;display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
 }
 .lang,.nav-tools .btn{white-space:nowrap;flex:none}
+/* 星雲法語 card: size the saying by its length so long ones fit */
+.scratch{aspect-ratio:auto;min-height:clamp(300px,32vw,420px)}
+.scratch[data-len="m"] blockquote{font-size:clamp(21px,2vw,27px)}
+.scratch[data-len="l"] blockquote{font-size:clamp(18px,1.6vw,22px);line-height:1.55}
+.scratch[data-len="xl"] blockquote{font-size:clamp(16px,1.3vw,18px);line-height:1.6}
+.scratch blockquote small{line-height:1.5}
+.en .scratch[data-len="s"] blockquote{font-size:clamp(20px,1.9vw,26px)}
+.en .scratch[data-len="m"] blockquote{font-size:clamp(18px,1.6vw,22px)}
