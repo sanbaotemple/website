@@ -606,3 +606,19 @@ footer.site .social a:hover{background:#013220;color:#C5A059}
 footer.site .ft-go{background:#013220;border-color:#013220;color:#fff}footer.site .ft-go:hover{background:#02472e;border-color:#02472e;color:#fff}
 footer.site::after{mix-blend-mode:multiply;opacity:.28;filter:grayscale(1) contrast(1.1) brightness(1.05)}
 footer.site a:hover{color:#013220;text-decoration:underline;text-underline-offset:3px}footer.site .social a:hover,footer.site .ft-go:hover{text-decoration:none}footer.site .social a:hover{color:#C5A059}footer.site .ft-go:hover{color:#fff}
+/* 2026-11-23 temple feedback */
+/* home founder band: new gate photo, keep the figure in frame */
+.band .media img[src*="master-gate"]{object-position:30% 35%}
+/* 法會登記 band: previous warm-brown overlay */
+.cta-band{background:#1f1912}
+.cta-band::after{background:linear-gradient(90deg,rgba(20,15,10,.72) 0%,rgba(20,15,10,.35) 55%,rgba(20,15,10,.1) 100%)}
+/* slideshow: slower cross-fade */
+.slide{transition:opacity 2.4s var(--ease),visibility 0s linear 2.4s}
+.slide.on{transition:opacity 2.4s var(--ease)}
+/* footer: fainter Buddha so the information reads clearly */
+footer.site::after{opacity:.13}
+footer.site{font-size:16px}
+footer.site h4{font-size:18px;font-weight:700}
+footer.site a,footer.site p,footer.site li{font-weight:500}
+@media (max-width:760px){footer.site::after{opacity:.08}}
+@media (max-width:640px){.band blockquote{font-size:26px}.band .text{padding:32px 24px}}

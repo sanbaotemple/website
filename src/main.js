@@ -93,7 +93,7 @@
     if (slides.length < 2) return;
     let at = 0, timer;
     const go = n => { at = (n + slides.length) % slides.length; slides.forEach((s, k) => { s.classList.toggle('on', k === at); s.setAttribute('aria-hidden', String(k !== at)); s.tabIndex = k === at ? 0 : -1; }); dots.forEach((d, k) => d.setAttribute('aria-current', String(k === at))); };
-    const play = () => { clearInterval(timer); if (!reduced) timer = setInterval(() => go(at + 1), 6500); };
+    const play = () => { clearInterval(timer); if (!reduced) timer = setInterval(() => go(at + 1), 6000); };
     box.querySelector('.nav-prev').onclick = () => { go(at - 1); play(); };
     box.querySelector('.nav-next').onclick = () => { go(at + 1); play(); };
     dots.forEach((d, k) => d.onclick = () => { go(k); play(); });
