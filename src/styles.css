@@ -635,3 +635,4 @@ footer.site a,footer.site p,footer.site li{font-weight:500}
   .band .media{aspect-ratio:auto;min-height:0;height:auto}
   .band .media img{position:static;display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
 }
+.lang,.nav-tools .btn{white-space:nowrap;flex:none}
