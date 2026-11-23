@@ -1,0 +1,649 @@
+{
+ "zh": {
+  "nav_home": "首頁",
+  "nav_founder": "創辦人",
+  "nav_about": "認識三寶寺",
+  "nav_events": "活動資訊",
+  "nav_news": "人間報導",
+  "nav_volunteer": "義工服務",
+  "nav_donate": "護寺捐款",
+  "nav_contact": "聯絡我們",
+  "sub_about": [
+   {
+    "label": "佛光山宗旨"
+   },
+   {
+    "label": "三寶寺簡介"
+   },
+   {
+    "label": "空間導覽"
+   },
+   {
+    "label": "佛光會"
+   },
+   {
+    "label": "青年團"
+   }
+  ],
+  "sub_events": [
+   {
+    "label": "法會修持"
+   },
+   {
+    "label": "課程講座"
+   },
+   {
+    "label": "社區活動"
+   },
+   {
+    "label": "寺院行事曆"
+   }
+  ],
+  "sub_news": [
+   {
+    "label": "慈善行動"
+   },
+   {
+    "label": "社區關懷"
+   },
+   {
+    "label": "國際議題"
+   }
+  ],
+  "sub_volunteer": [
+   {
+    "label": "加入義工"
+   }
+  ],
+  "sub_donate": [
+   {
+    "label": "護持緣起"
+   },
+   {
+    "label": "光明燈登記"
+   },
+   {
+    "label": "線上捐款"
+   },
+   {
+    "label": "護持項目"
+   }
+  ],
+  "sub_contact": [
+   {
+    "label": "地圖導引"
+   },
+   {
+    "label": "聯絡資訊"
+   },
+   {
+    "label": "聯絡表單"
+   }
+  ],
+  "heroSub": "AMERICAN BUDDHIST CULTURAL SOCIETY",
+  "address": "1750 Van Ness Ave, San Francisco, CA 94109",
+  "scroll": "向下滾動",
+  "news_title": "最新公告",
+  "news_kicker": "NEWS",
+  "news_more": "查看全部公告",
+  "news_detail": "更多細節",
+  "news": [
+   {
+    "date": "7/12",
+    "title": "大悲懺法會",
+    "desc": "禮拜《大悲懺》，稱念觀世音菩薩聖號，懺除業障、長養慈悲，祈願眾生離苦得樂、福慧增長。",
+    "img": "assets/facade-door.jpg"
+   },
+   {
+    "date": "8/2",
+    "title": "開光典禮 · 10am–11am",
+    "desc": "恭請諸佛菩薩聖像安座開光，廣邀十方信眾同霑法喜、共沐佛恩，為道場寫下莊嚴的一頁。",
+    "img": "assets/buddha.png"
+   },
+   {
+    "date": "8/2",
+    "title": "三歸五戒 · 1:30pm–4pm",
+    "desc": "受持三皈依與五戒，正式成為三寶弟子，踏出學佛修行、安身立命的第一步。",
+    "img": "assets/master-seated.jpg"
+   },
+   {
+    "date": "8/13–16",
+    "title": "梁皇寶懺",
+    "desc": "啟建《梁皇寶懺》法會，超薦先亡、消災祈福，為闔家親眷祈求平安吉祥、業障消除。",
+    "img": "assets/facade-full.jpg"
+   }
+  ],
+  "events_kicker": "EVENTS",
+  "events_title": "活動資訊",
+  "ev_cal": "寺院行事曆",
+  "ev_dharma_title": "法會修持",
+  "ev_dharma_intro": "三寶寺定期舉辦各類法會與共修，接引大眾於誦經、禮拜與共修中安定身心。（詳細法會介紹文本將陸續更新）",
+  "ev_dharma_groups": [
+   {
+    "label": "年度法會",
+    "items": [
+     "春節法會",
+     "大悲懺法會",
+     "清明法會",
+     "浴佛法會",
+     "孝道月（早晚誦持地藏經）",
+     "梁皇法會",
+     "藥師法會",
+     "彌陀法會"
+    ]
+   },
+   {
+    "label": "戒會修持",
+    "items": [
+     "三歸五戒",
+     "八關齋戒"
+    ]
+   },
+   {
+    "label": "例行共修",
+    "items": [
+     "八十八佛",
+     "阿彌陀經",
+     "金剛經",
+     "普門品"
+    ]
+   },
+   {
+    "label": "特殊法會",
+    "items": [
+     "焰口法會"
+    ]
+   }
+  ],
+  "ev_course_title": "課程講座",
+  "ev_course_intro": "課程介紹・授課語言・報名方式",
+  "ev_courses": [
+   {
+    "name": "楞嚴經",
+    "teacher": "妙皇法師",
+    "lang": "中文"
+   },
+   {
+    "name": "禪修班",
+    "teacher": "知季法師",
+    "lang": "英文"
+   }
+  ],
+  "ev_comm_title": "社區活動",
+  "ev_comm_intro": "內容陸續更新中，歡迎大眾踴躍參與。",
+  "ev_comm": [
+   {
+    "name": "VegRun",
+    "desc": "蔬食路跑，以健康環保的蔬食生活，邀請社區大眾一同響應。"
+   },
+   {
+    "name": "Food Bank",
+    "desc": "食物銀行，集結十方愛心，關懷社區中有需要的家庭。"
+   },
+   {
+    "name": "玩具物資收集",
+    "desc": "每年聖誕節協助消防局募集玩具與民生物資，捐贈予有需要的人。"
+   }
+  ],
+  "tour_kicker": "TEMPLE TOUR",
+  "tour_title": "寺院導覽",
+  "tour_desc": "走進范尼斯大道上的這座當代道場——簡淨的石格立面之後，是大雄寶殿、禪堂與文化講堂。讓我們引導您，於鬧市之中尋一處清涼。",
+  "tour_cta": "進入導覽",
+  "founder_kicker": "OUR FOUNDER",
+  "founder_title": "創辦人",
+  "founder_name": "星雲大師",
+  "founder_role": "佛光山開山宗長",
+  "founder_quote": "心中有佛，所見皆佛。",
+  "founder_desc": "星雲大師一生倡導「人間佛教」，以文化、教育、慈善與共修弘法利生。三寶寺秉承師志，將佛法的清涼帶入舊金山的日常。",
+  "founder_cta": "閱讀星雲大師法語",
+  "founder_link": "https://www.fgs.org.tw/events/masterhsingyun/",
+  "vol_kicker": "VOLUNTEER",
+  "vol_title": "義工服務",
+  "vol_intro": "義工是道場最溫暖的力量。三寶寺設有多組義工團隊，歡迎您依興趣與專長加入，在服務中修福修慧、廣結善緣。",
+  "vol_groups": [
+   {
+    "name": "佛光書局",
+    "desc": "流通佛教書籍、文物與結緣品，以書香接引大眾親近佛法。"
+   },
+   {
+    "name": "滴水坊",
+    "desc": "提供蔬食茶點，以一杯茶、一份餐，傳遞佛門的歡喜與惜福。"
+   },
+   {
+    "name": "大寮",
+    "desc": "護持齋堂烹調，為大眾準備清淨蔬食，成就以食弘法的因緣。"
+   },
+   {
+    "name": "行堂",
+    "desc": "用齋時的供餐與照料，讓大眾安心受食、長養道情。"
+   },
+   {
+    "name": "法務",
+    "desc": "協助法會的莊嚴與進行，引導信眾如法共修。"
+   },
+   {
+    "name": "文書",
+    "desc": "負責文書記錄、文宣與資料整理，留存道場弘法的足跡。"
+   },
+   {
+    "name": "總務",
+    "desc": "統籌庶務與場地後勤，讓各項活動順利圓滿。"
+   },
+   {
+    "name": "環保",
+    "desc": "推動資源回收與環境整潔，落實惜福愛地球的理念。"
+   },
+   {
+    "name": "知賓",
+    "desc": "迎賓接待、引導參訪，以親切的笑容廣結善緣。"
+   }
+  ],
+  "quick_kicker": "QUICK ACCESS",
+  "quick_title": "快速鍵",
+  "links": [
+   {
+    "label": "光明燈登記",
+    "desc": "為自己與家人點一盞智慧之燈"
+   },
+   {
+    "label": "線上捐款",
+    "desc": "護持道場，成就無量功德"
+   },
+   {
+    "label": "加入義工",
+    "desc": "以歡喜心，服務十方來眾"
+   },
+   {
+    "label": "道場開放時間",
+    "desc": "規劃您的參訪行程"
+   }
+  ],
+  "donate_kicker": "DONATE",
+  "donate_title": "護寺捐款",
+  "donate_lead": "線上捐款系統說明 · Online Donation",
+  "donate_intro": "佛光山三寶寺是一處奉行人間佛教的菩薩道場，以文化、教育、慈善與共修弘法利生。您的每一分護持，都將匯聚成河，成就道場弘法的資糧，點亮世間的每一盞心燈。秉持「給人信心、給人歡喜、給人希望、給人方便」的精神，三寶寺設置安全便捷的線上捐款，讓十方大眾輕鬆種福田、共成無量功德。",
+  "donate_notesTitle": "捐款注意事項",
+  "donate_notes": [
+   {
+    "text": "線上捐款透過 PayPal 安全付款；Zelle 轉帳請依下方說明操作，款項將直接匯入美國佛教文化協會帳戶。"
+   },
+   {
+    "text": "完成 PayPal 捐款後，系統將自動寄送電子收據至您的電子信箱。"
+   },
+   {
+    "text": "如需開立正式捐款收據，請於捐款後來信 sanbao@ibps.org，並提供姓名、地址與捐款資訊。"
+   },
+   {
+    "text": "選擇不具名捐款者，將視同以「三寶弟子」為捐款人，日後恕無法提供開立收據及捐款查詢服務。",
+    "warn": true
+   }
+  ],
+  "donate_fundsTitle": "選擇捐款功德項目",
+  "donate_funds": [
+   {
+    "label": "建寺功德",
+    "desc": "護持道場修建與維護，成就莊嚴清淨的修行空間。"
+   },
+   {
+    "label": "法會功德",
+    "desc": "護持法會、共修與弘法活動，廣結善緣。"
+   },
+   {
+    "label": "隨喜功德",
+    "desc": "隨喜布施，護持道場日常運作與利生事業。"
+   }
+  ],
+  "donate_consent": "我已詳細閱讀以上注意事項，並了解捐款相關事宜，將進行捐款。",
+  "donate_paypal": "以 PayPal 捐款",
+  "donate_zelle": "以 Zelle 捐款",
+  "donate_zelleInfo": "Zelle 收款資訊（待補）：請於 App 中以收款 Email／電話轉帳，並於附註填寫您所選擇的功德項目與姓名。完成後可來信 sanbao@ibps.org 告知，以利開立收據。",
+  "donate_hint": "捐款將於新分頁開啟 PayPal 安全頁面。請先勾選上方同意事項後，再選擇付款方式。",
+  "sub_kicker": "STAY CONNECTED",
+  "sub_title": "訂閱最新消息",
+  "sub_desc": "留下您的電子郵件，第一時間收到法會、講座與活動通知。",
+  "sub_ph": "您的電子郵件",
+  "sub_btn": "訂閱",
+  "support_title": "贊助我們",
+  "support_text": "佛光山是一個行人間佛教的菩薩道場，如果您喜歡我們的宗風，認同我們的理念，歡迎您隨喜贊助。涓滴的護持將會匯集成大河，成為我們繼續前進的動力。",
+  "support_btn": "線上捐款",
+  "contact_kicker": "CONTACT",
+  "contact_title": "聯絡我們",
+  "c_addrTitle": "地址",
+  "c_thanks": "感謝您對佛光山三寶寺的支持與愛護，如果您對網頁有任何問題，歡迎提出意見及相關問題，讓我們有機會提供給您更好的服務。",
+  "c_reach": "聯絡資訊",
+  "c_follow": "追蹤我們",
+  "c_links": "友善連結",
+  "c_hoursTitle": "開放時間",
+  "c_hoursVal": "週二至週六 10:00am – 4:00pm（週一休息）",
+  "f_contactTitle": "聯絡方式",
+  "f_phone": "+1 415 776 6538",
+  "f_email": "sanbao@ibps.org",
+  "f_hoursTitle": "開放時間",
+  "f_hoursVal": "週二至週日 10:00a.m. – 4:00p.m.（固定週一公休）",
+  "f_rights": "© 2026 佛光山三寶寺　版權所有"
+ },
+ "en": {
+  "nav_home": "Home",
+  "nav_founder": "Founder",
+  "nav_about": "About",
+  "nav_events": "Events",
+  "nav_news": "News",
+  "nav_volunteer": "Volunteer",
+  "nav_donate": "Donate",
+  "nav_contact": "Contact",
+  "sub_about": [
+   {
+    "label": "FGS Mission"
+   },
+   {
+    "label": "About the Temple"
+   },
+   {
+    "label": "Space & Grounds"
+   },
+   {
+    "label": "Buddha’s Light Assn."
+   },
+   {
+    "label": "Youth Group"
+   }
+  ],
+  "sub_events": [
+   {
+    "label": "Dharma Services"
+   },
+   {
+    "label": "Courses & Lectures"
+   },
+   {
+    "label": "Community Activities"
+   },
+   {
+    "label": "Temple Calendar"
+   }
+  ],
+  "sub_news": [
+   {
+    "label": "Charity in Action"
+   },
+   {
+    "label": "Community Care"
+   },
+   {
+    "label": "Global Topics"
+   }
+  ],
+  "sub_volunteer": [
+   {
+    "label": "Become a Volunteer"
+   }
+  ],
+  "sub_donate": [
+   {
+    "label": "Why Support Us"
+   },
+   {
+    "label": "Light Offering"
+   },
+   {
+    "label": "Donate Online"
+   },
+   {
+    "label": "Support Projects"
+   }
+  ],
+  "sub_contact": [
+   {
+    "label": "Directions & Map"
+   },
+   {
+    "label": "Contact Info"
+   },
+   {
+    "label": "Contact Form"
+   }
+  ],
+  "heroSub": "佛光山三寶寺",
+  "society": "AMERICAN BUDDHIST CULTURAL SOCIETY",
+  "address": "1750 Van Ness Ave, San Francisco, CA 94109",
+  "scroll": "Scroll",
+  "news_title": "Latest Announcements",
+  "news_kicker": "NEWS",
+  "news_more": "View all announcements",
+  "news_detail": "More details",
+  "news": [
+   {
+    "date": "Jul 12",
+    "title": "Great Compassion Repentance Service",
+    "desc": "Prostrating to the Great Compassion Repentance and reciting the name of Guanyin Bodhisattva — cleansing karma and nurturing compassion for all beings.",
+    "img": "assets/facade-door.jpg"
+   },
+   {
+    "date": "Aug 2",
+    "title": "Buddha Consecration · 10–11 AM",
+    "desc": "The consecration and enshrinement of the Buddha images — all are warmly welcome to share in the joy of the Dharma.",
+    "img": "assets/buddha.png"
+   },
+   {
+    "date": "Aug 2",
+    "title": "Three Refuges & Five Precepts · 1:30–4 PM",
+    "desc": "Take the Three Refuges and Five Precepts to formally become a disciple — the first step on the path of practice.",
+    "img": "assets/master-seated.jpg"
+   },
+   {
+    "date": "Aug 13–16",
+    "title": "Emperor Liang Jeweled Repentance",
+    "desc": "The Emperor Liang Repentance service — dedicating merit to the departed, dispelling misfortune and praying for the peace of the whole family.",
+    "img": "assets/facade-full.jpg"
+   }
+  ],
+  "events_kicker": "EVENTS",
+  "events_title": "Events",
+  "ev_cal": "Temple Calendar",
+  "ev_dharma_title": "Dharma Services & Practice",
+  "ev_dharma_intro": "The temple holds Dharma services and group practice throughout the year — settling body and mind through chanting, prostration and shared cultivation. (Detailed descriptions coming soon.)",
+  "ev_dharma_groups": [
+   {
+    "label": "Annual Services",
+    "items": [
+     "Lunar New Year",
+     "Great Compassion Repentance",
+     "Qingming",
+     "Bathing of the Buddha",
+     "Filial-Piety Month (Ksitigarbha Sutra)",
+     "Emperor Liang Repentance",
+     "Medicine Buddha",
+     "Amitabha"
+    ]
+   },
+   {
+    "label": "Precept Ceremonies",
+    "items": [
+     "Three Refuges & Five Precepts",
+     "Eight Precepts Retreat"
+    ]
+   },
+   {
+    "label": "Regular Practice",
+    "items": [
+     "88 Buddhas",
+     "Amitabha Sutra",
+     "Diamond Sutra",
+     "Universal Gate Chapter"
+    ]
+   },
+   {
+    "label": "Special Service",
+    "items": [
+     "Yankou (Flaming Mouth) Service"
+    ]
+   }
+  ],
+  "ev_course_title": "Courses & Lectures",
+  "ev_course_intro": "Course overview · language of instruction · how to register",
+  "ev_courses": [
+   {
+    "name": "Shurangama Sutra",
+    "teacher": "Ven. Miao Huang",
+    "lang": "Chinese"
+   },
+   {
+    "name": "Meditation Class",
+    "teacher": "Ven. Zhi Ji",
+    "lang": "English"
+   }
+  ],
+  "ev_comm_title": "Community Activities",
+  "ev_comm_intro": "More to come — all are warmly welcome to take part.",
+  "ev_comm": [
+   {
+    "name": "VegRun",
+    "desc": "A plant-based fun run promoting a healthy, eco-friendly vegetarian lifestyle with the community."
+   },
+   {
+    "name": "Food Bank",
+    "desc": "Gathering kindness to care for families in need across the community."
+   },
+   {
+    "name": "Toy & Supplies Drive",
+    "desc": "Each Christmas we help the fire department collect toys and daily goods to donate to those in need."
+   }
+  ],
+  "tour_kicker": "TEMPLE TOUR",
+  "tour_title": "Temple Tour",
+  "tour_desc": "Step inside this contemporary monastery on Van Ness Avenue. Behind the quiet stone-lattice facade lie the main shrine, the meditation hall and a cultural lecture space — a cool refuge in the midst of the city.",
+  "tour_cta": "Begin the tour",
+  "founder_kicker": "OUR FOUNDER",
+  "founder_title": "Our Founder",
+  "founder_name": "Venerable Master Hsing Yun",
+  "founder_role": "Founder of Fo Guang Shan",
+  "founder_quote": "When the Buddha is in your heart, everything you see is the Buddha.",
+  "founder_desc": "Venerable Master Hsing Yun devoted his life to “Humanistic Buddhism,” spreading the Dharma through culture, education, charity and shared practice. The temple carries forward his vision, bringing the calm of the Dharma into everyday San Francisco.",
+  "founder_cta": "Read the Master’s words",
+  "founder_link": "https://www.fgs.org.tw/en/Founder/Overview/",
+  "vol_kicker": "VOLUNTEER",
+  "vol_title": "Volunteer Service",
+  "vol_intro": "Volunteers are the warmest force in the temple. Several volunteer teams welcome you to join according to your interests and skills — cultivating merit and wisdom through service.",
+  "vol_groups": [
+   {
+    "name": "Fo Guang Bookstore",
+    "desc": "Sharing Buddhist books, artifacts and gifts to help people draw near to the Dharma."
+   },
+   {
+    "name": "Water Drop Teahouse",
+    "desc": "Serving vegetarian tea and meals — a cup of tea and a dish that share the joy of the monastery."
+   },
+   {
+    "name": "Kitchen (Da Liao)",
+    "desc": "Preparing pure vegetarian food for all, spreading the Dharma through the act of cooking."
+   },
+   {
+    "name": "Dining Service",
+    "desc": "Serving and caring for diners during meals so all may eat with ease and peace."
+   },
+   {
+    "name": "Dharma Service",
+    "desc": "Supporting the dignity and flow of Dharma services and guiding devotees in practice."
+   },
+   {
+    "name": "Documentation",
+    "desc": "Keeping records, publicity and archives — preserving the temple’s journey of spreading the Dharma."
+   },
+   {
+    "name": "General Affairs",
+    "desc": "Coordinating logistics and venues so every activity runs smoothly."
+   },
+   {
+    "name": "Environmental",
+    "desc": "Promoting recycling and cleanliness, putting care for the earth into practice."
+   },
+   {
+    "name": "Reception",
+    "desc": "Welcoming and guiding visitors with a warm smile, forming good affinities with all."
+   }
+  ],
+  "quick_kicker": "QUICK ACCESS",
+  "quick_title": "Quick Access",
+  "links": [
+   {
+    "label": "Light Offering",
+    "desc": "Offer a lamp of wisdom for you and your family"
+   },
+   {
+    "label": "Donate Online",
+    "desc": "Support the temple and plant boundless merit"
+   },
+   {
+    "label": "Become a Volunteer",
+    "desc": "Serve all who come, with a joyful heart"
+   },
+   {
+    "label": "Visiting Hours",
+    "desc": "Plan your visit to the temple"
+   }
+  ],
+  "donate_kicker": "DONATE",
+  "donate_title": "Support the Temple",
+  "donate_lead": "Instructions for Donating Online · 線上捐款",
+  "donate_intro": "Three Treasures Temple is a Humanistic Buddhist monastery serving through culture, education, charity and shared practice. Every gift, however small, gathers like drops into a great river — sustaining the Dharma and lighting a lamp in every heart. In the spirit of “giving others confidence, joy, hope and convenience,” the temple offers a safe and simple way to give online, so all may plant seeds of merit together.",
+  "donate_notesTitle": "Before You Donate",
+  "donate_notes": [
+   {
+    "text": "Online gifts are processed securely through PayPal; for Zelle, please follow the instructions below. All funds go directly to the American Buddhist Cultural Society."
+   },
+   {
+    "text": "After a PayPal donation, an electronic receipt is automatically emailed to you."
+   },
+   {
+    "text": "For a formal donation receipt, email sanbao@ibps.org after donating with your name, address and gift details."
+   },
+   {
+    "text": "Anonymous donations are recorded under “Triple Gem disciple”; receipts and donation look-ups cannot be provided afterward.",
+    "warn": true
+   }
+  ],
+  "donate_fundsTitle": "Choose a Dedication",
+  "donate_funds": [
+   {
+    "label": "Temple Building",
+    "desc": "Support the building and upkeep of the temple — a serene space for practice."
+   },
+   {
+    "label": "Dharma Services",
+    "desc": "Support Dharma services, group practice and outreach."
+   },
+   {
+    "label": "Joyful Giving",
+    "desc": "Give as your heart moves you — sustaining daily operations and good works."
+   }
+  ],
+  "donate_consent": "I have read the notes above, understand the donation terms, and wish to proceed.",
+  "donate_paypal": "Donate with PayPal",
+  "donate_zelle": "Donate with Zelle",
+  "donate_zelleInfo": "Zelle details (to be added): please send via the Zelle app to the temple’s recipient email/phone, noting your chosen dedication and name. Email sanbao@ibps.org afterward so we can issue a receipt.",
+  "donate_hint": "PayPal opens in a new tab on a secure page. Please tick the agreement above, then choose a payment method.",
+  "sub_kicker": "STAY CONNECTED",
+  "sub_title": "Subscribe",
+  "sub_desc": "Leave your email to be the first to hear about ceremonies, lectures and events.",
+  "sub_ph": "Your email address",
+  "sub_btn": "Subscribe",
+  "support_title": "Support Us",
+  "support_text": "Three Treasures Temple is a Humanistic Buddhist monastery. If you appreciate our spirit and share our vision, we warmly welcome your support. Every drop of giving gathers into a great river — the force that carries us forward.",
+  "support_btn": "Donate Online",
+  "contact_kicker": "CONTACT",
+  "contact_title": "Contact Us",
+  "c_addrTitle": "Address",
+  "c_thanks": "Thank you for your support of Three Treasures Temple. If you have any questions about the website, we warmly welcome your feedback so we can serve you better.",
+  "c_reach": "Get in touch",
+  "c_follow": "Follow Us",
+  "c_links": "Related Links",
+  "c_hoursTitle": "Opening Hours",
+  "c_hoursVal": "Tue – Sat  10:00 AM – 4:00 PM (Closed Mon)",
+  "f_contactTitle": "Contact",
+  "f_phone": "+1 415 776 6538",
+  "f_email": "sanbao@ibps.org",
+  "f_hoursTitle": "Opening Hours",
+  "f_hoursVal": "Tue – Sun  10:00 AM – 4:00 PM (Closed Mon)",
+  "f_rights": "© 2026 American Buddhist Cultural Society · Three Treasures Temple. All rights reserved."
+ }
+}

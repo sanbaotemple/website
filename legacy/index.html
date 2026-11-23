@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+
+  /* consistent page backdrop: warm cream + heavily-washed Buddha watermark.
+     Painted on a viewport-fixed pseudo-layer so `cover` fits any screen size
+     (incl. mobile) and works on iOS where background-attachment:fixed does not. */
+  .page-root { position: relative; z-index: 0; background-color: #f4efe5; }
+  .page-root::before {
+    content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-color: #f4efe5;
+    background-image:
+      linear-gradient(rgba(244,239,229,0.82), rgba(244,239,229,0.88)),
+      url('assets/facade-buhhda.jpg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: cover, cover;
+  }
+  /* desktop: fit the whole Buddha (contain) instead of a zoomed face */
+  @media (min-width: 881px) {
+    .page-root::before { background-size: cover, contain; background-position: center, center; }
+  }
+  @keyframes nudge { 0%,100% { transform: translateY(0); opacity:.5 } 50% { transform: translateY(7px); opacity:1 } }
+  @keyframes floatup { from { opacity:0; transform: translateY(18px) } to { opacity:1; transform: translateY(0) } }
+
+  /* ---- nav dropdowns ---- */
+  .nav-item { position: relative; display: flex; align-items: center; }
+  .nav-item > a { transition: color .18s ease; }
+  .nav-item:hover > a { color: var(--accentDeep); }
+  .nav-drop {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+    padding-top: 12px; /* transparent bridge so hover survives the gap */
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease; z-index: 60;
+  }
+  .nav-item:hover > .nav-drop { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+  .nav-drop.right { left: auto; right: 0; transform: translateY(8px); }
+  .nav-item:hover > .nav-drop.right { transform: translateY(0); }
+  .nav-card {
+    min-width: 196px; background: rgba(250,248,244,0.97);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(26,23,20,0.10); border-radius: 5px;
+    box-shadow: 0 20px 54px rgba(0,0,0,0.18); padding: 7px;
+    display: flex; flex-direction: column;
+  }
+  .nav-card a {
+    padding: 10px 15px; font-size: 13.5px; color: #33302b; text-decoration: none;
+    border-radius: 4px; white-space: nowrap; letter-spacing: .5px;
+    transition: background .15s ease, color .15s ease;
+  }
+  .nav-card a:hover { background: rgba(176,132,54,0.11); color: var(--accentDeep); }
+
+  /* ---- mobile nav + responsive (overrides inline styles via !important) ---- */
+  .nav-burger { display: none; }
+  .mnav-link:active { background: rgba(176,132,54,0.08); }
+
+  @media (max-width: 880px) {
+    .site-nav { padding: 0 18px !important; gap: 12px !important; }
+    .nav-center { display: none !important; }
+    .nav-donate { display: none !important; }
+    .nav-burger { display: flex !important; }
+    .hero-content { padding-left: 22px !important; padding-right: 22px !important; }
+
+    .events-grid { grid-template-columns: 1fr !important; }
+    .links-grid { grid-template-columns: 1fr 1fr !important; }
+    .tour-grid, .founder-grid { grid-template-columns: 1fr !important; min-height: 0 !important; }
+    .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .donate-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
+    .ev-2col, .ev-3col { grid-template-columns: 1fr !important; }
+    .ev-grouprow { grid-template-columns: 1fr !important; gap: 10px !important; }
+    .vol-row { grid-template-columns: 1fr !important; }
+    .contact-map, .footer-map { grid-template-columns: 1fr !important; }
+    .contact-map-info, .footer-map-info { grid-template-columns: 1fr 1fr !important; }
+    .tour-text, .founder-text { padding: 60px 22px !important; }
+    .founder-imgcol { min-height: 340px !important; }
+    .founder-img { height: 360px !important; background-position: center top !important; }
+    .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 30px !important; }
+
+    .secpad { padding: 66px 22px !important; }
+    .site-footer { padding: 56px 22px 30px !important; }
+
+    .news-card { display: flex !important; flex-direction: column !important; }
+    .news-card .news-date { padding: 20px 22px 0 !important; }
+    .news-card .news-body { border-left: 0 !important; padding: 14px 22px 26px !important; }
+    .news-card .news-img { order: -1; min-height: 200px !important; }
+  }
+  @media (max-width: 520px) {
+    .links-grid { grid-template-columns: 1fr !important; }
+    .footer-grid { grid-template-columns: 1fr !important; }
+  }
+
+  /* mobile menu panel — desktop hides it regardless of state */
+  @media (min-width: 881px) { .mnav { display: none !important; } }
+</style>
+</helmet>
+<div class="page-root" style="--accent:{{ accent }}; --accentDeep:{{ accentDeep }}; --ink:#1a1714; --cream:#faf8f4; font-family:'Noto Sans TC',system-ui,sans-serif; color:#1a1714; overflow-x:hidden; -webkit-font-smoothing:antialiased;">
+
+  <!-- ============ NAV ============ -->
+  <nav class="site-nav" style="position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:24px; height:74px; padding:0 38px; background:rgba(250,248,244,0.82); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid rgba(26,23,20,0.09);">
+    <a href="#top" style="display:flex; align-items:center; text-decoration:none; flex:none;">
+      <img src="assets/logo.png" alt="佛光山三寶寺" style="height:44px; width:auto; display:block;">
+    </a>
+    <div class="nav-center" style="display:flex; align-items:center; gap:1px; flex:none;">
+      <div class="nav-item">
+        <a href="#top" style="padding:9px 12px; font-size:14px; color:#33302b; text-decoration:none; letter-spacing:.5px;">{{ t.nav_home }}</a>
+      </div>
+      <div class="nav-item">
+        <a href="#founder" style="padding:9px 12px; font-size:14px; color:#33302b; text-decoration:none; letter-spacing:.5px;">{{ t.nav_founder }}</a>
+      </div>
+      <div class="nav-item">
+        <a href="#tour" style="padding:9px 12px; font-size:14px; color:#33302b; text-decoration:none; letter-spacing:.5px;">{{ t.nav_about }}</a>
+        <div class="nav-drop"><div class="nav-card">
+          <sc-for list="{{ t.sub_about }}" as="s" hint-placeholder-count="5"><a href="#tour">{{ s.label }}</a></sc-for>
+        </div></div>
+      </div>
+      <div class="nav-item">
+        <a href="#events" style="padding:9px 12px; font-size:14px; color:#33302b; text-decoration:none; letter-spacing:.5px;">{{ t.nav_events }}</a>
+        <div class="nav-drop"><div class="nav-card">
+          <sc-for list="{{ t.sub_events }}" as="s" hint-placeholder-count="4"><a href="#events">{{ s.label }}</a></sc-for>
+        </div></div>
+      </div>
+      <div class="nav-item">
+        <a href="#news" style="padding:9px 12px; font-size:14px; color:#33302b; text-decoration:none; letter-spacing:.5px;">{{ t.nav_news }}</a>
+        <div class="nav-drop"><div class="nav-card">
+          <sc-for list="{{ t.sub_news }}" as="s" hint-placeholder-count="3"><a href="#news">{{ s.label }}</a></sc-for>
+        </div></div>
+      </div>
+      <div class="nav-item">
+        <a href="#volunteer" style="padding:9px 12px; font-size:14px; color:#33302b; text-decoration:none; letter-spacing:.5px;">{{ t.nav_volunteer }}</a>
+        <div class="nav-drop"><div class="nav-card">
+          <sc-for list="{{ t.sub_volunteer }}" as="s" hint-placeholder-count="1"><a href="#volunteer">{{ s.label }}</a></sc-for>
+        </div></div>
+      </div>
+      <div class="nav-item">
+        <a href="#contact" style="padding:9px 12px; font-size:14px; color:#33302b; text-decoration:none; letter-spacing:.5px;">{{ t.nav_contact }}</a>
+        <div class="nav-drop"><div class="nav-card">
+          <sc-for list="{{ t.sub_contact }}" as="s" hint-placeholder-count="3"><a href="#contact">{{ s.label }}</a></sc-for>
+        </div></div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px; flex:none;">
+      <button onClick="{{ toggleLang }}" style="display:flex; align-items:center; gap:5px; background:none; border:none; cursor:pointer; font-family:'Noto Sans TC',sans-serif; font-size:13px; color:#5c564e; padding:6px 2px; letter-spacing:.5px;">
+        <span style="font-weight:{{ zhWeight }}; color:{{ zhColor }};">中文</span>
+        <span style="opacity:.4;">/</span>
+        <span style="font-weight:{{ enWeight }}; color:{{ enColor }}; font-family:'Cormorant Garamond',serif; font-size:15px;">EN</span>
+      </button>
+      <div class="nav-item nav-donate">
+        <a href="#donate" style="padding:9px 18px; background:var(--accent); color:#fff; font-size:14px; text-decoration:none; border-radius:2px; letter-spacing:1px;">{{ t.nav_donate }}</a>
+        <div class="nav-drop right"><div class="nav-card">
+          <sc-for list="{{ t.sub_donate }}" as="s" hint-placeholder-count="4"><a href="#donate">{{ s.label }}</a></sc-for>
+        </div></div>
+      </div>
+      <button class="nav-burger" onClick="{{ toggleNav }}" aria-label="Menu" style="display:none; align-items:center; justify-content:center; width:42px; height:42px; background:none; border:none; cursor:pointer; font-size:21px; line-height:1; color:#1a1714; flex:none;">{{ burgerIcon }}</button>
+    </div>
+  </nav>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mnav" style="display:{{ navOpenDisplay }}; position:fixed; top:74px; left:0; right:0; bottom:0; z-index:49; background:rgba(250,248,244,0.985); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); flex-direction:column; padding:8px 22px 48px; overflow-y:auto;">
+    <sc-for list="{{ navSections }}" as="s">
+      <div style="border-bottom:1px solid rgba(26,23,20,0.10);">
+        <a href="{{ s.href }}" onClick="{{ s.tap }}" class="mnav-link" style="display:flex; align-items:center; justify-content:space-between; padding:17px 4px; text-decoration:none; color:#1a1714; font-family:'Noto Serif TC',serif; font-size:18px; letter-spacing:1px;">
+          <span>{{ s.label }}</span>
+          <span style="color:var(--accent); font-size:22px; width:26px; text-align:center; font-family:system-ui,sans-serif;">{{ s.caret }}</span>
+        </a>
+        <div style="display:{{ s.subDisplay }}; flex-direction:column; padding:0 4px 14px;">
+          <sc-for list="{{ s.items }}" as="i">
+            <a href="{{ s.href }}" onClick="{{ closeNav }}" class="mnav-link" style="padding:11px 14px; text-decoration:none; color:#5c564e; font-size:15px; letter-spacing:.5px; border-left:2px solid rgba(176,132,54,0.45); margin-bottom:2px; border-radius:0 3px 3px 0;">{{ i.label }}</a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ isHome }}">
+  <!-- ============ HERO ============ -->
+  <header id="top" style="position:relative; min-height:100vh; display:flex; align-items:flex-end; overflow:hidden;">
+    <div style="position:absolute; inset:0; background-image:url('assets/facade-full.jpg'); background-size:cover; background-position:center 38%;"></div>
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(18,14,10,0.52) 0%, rgba(18,14,10,0.10) 30%, rgba(18,14,10,0.26) 58%, rgba(18,14,10,0.88) 100%);"></div>
+
+    <div class="hero-content" style="position:relative; z-index:2; padding:0 38px 8.5vh; max-width:760px;">
+      <h1 style="margin:0; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(52px,7vw,104px); line-height:1.02; color:#fdfbf6; letter-spacing:4px; text-shadow:0 4px 30px rgba(0,0,0,0.4); animation:floatup .9s .08s ease both;">佛光山三寶寺</h1>
+      <p style="margin:18px 0 0; font-family:'Cormorant Garamond',serif; font-size:clamp(22px,2.4vw,30px); color:#efe7d8; letter-spacing:1.5px; animation:floatup 1s .16s ease both;">{{ t.heroSub }}</p>
+      <p style="margin:6px 0 0; font-size:14px; letter-spacing:2.5px; text-transform:uppercase; color:#c7bca9; animation:floatup 1s .22s ease both;">{{ t.society }}</p>
+      <div style="display:flex; align-items:center; gap:9px; margin-top:30px; animation:floatup 1.1s .3s ease both;">
+        <span style="width:7px; height:7px; border-radius:50%; background:var(--accent);"></span>
+        <span style="font-size:14px; color:#e6ddcd; letter-spacing:.5px;">{{ t.address }}</span>
+      </div>
+    </div>
+
+    <div style="position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:2; display:flex; flex-direction:column; align-items:center; gap:7px;">
+      <span style="font-family:'Cormorant Garamond',serif; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#e4dccd;">{{ t.scroll }}</span>
+      <span style="font-size:17px; color:var(--accent); animation:nudge 1.8s ease-in-out infinite;">↓</span>
+    </div>
+  </header>
+
+  <!-- ============ NEWS ============ -->
+  <section id="news" class="secpad" style="background:transparent; padding:104px 38px 96px;">
+    <div style="max-width:1180px; margin:0 auto;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:40px; flex-wrap:wrap;">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <span style="width:26px; height:1px; background:var(--accent);"></span>
+            <span style="font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--accent);">{{ t.news_kicker }}</span>
+          </div>
+          <h2 style="margin:0; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(34px,4vw,46px); letter-spacing:2px; color:#1a1714;">{{ t.news_title }}</h2>
+        </div>
+        <a href="#" style="display:inline-flex; align-items:center; gap:7px; font-size:14px; color:var(--accentDeep); text-decoration:none; letter-spacing:.5px; padding-bottom:2px; border-bottom:1px solid var(--accent);">{{ t.news_more }} <span style="font-size:15px;">→</span></a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:24px;">
+        <sc-for list="{{ t.news }}" as="n" hint-placeholder-count="4">
+          <div class="news-card" style="display:grid; grid-template-columns:118px 1fr 310px; background:#fdfbf7; border:1px solid rgba(26,23,20,0.08); border-radius:6px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,0.03);">
+            <div class="news-date" style="padding:34px 0 34px 28px; display:flex; align-items:flex-start;">
+              <span style="font-family:'Cormorant Garamond',serif; font-size:21px; color:var(--accentDeep); letter-spacing:1px; white-space:nowrap;">{{ n.date }}</span>
+            </div>
+            <div class="news-body" style="padding:32px 32px 32px 28px; border-left:1px solid rgba(26,23,20,0.10); display:flex; flex-direction:column;">
+              <h3 style="margin:0 0 12px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:24px; letter-spacing:1px; line-height:1.3; color:#1a1714;">{{ n.title }}</h3>
+              <p style="margin:0 0 22px; font-size:14.5px; line-height:1.8; color:#5e584e;">{{ n.desc }}</p>
+              <a href="#events" style="align-self:flex-start; display:inline-flex; align-items:center; gap:7px; padding:10px 20px; background:var(--accent); color:#fff; text-decoration:none; border-radius:3px; font-size:13.5px; letter-spacing:1px;">{{ t.news_detail }} <span>→</span></a>
+            </div>
+            <div class="news-img" style="background-image:url('{{ n.img }}'); background-size:cover; background-position:center; min-height:230px;"></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  </sc-if>
+
+  <!-- ============ EVENTS (page) ============ -->
+  <sc-if value="{{ isEvents }}">
+  <section id="events" class="secpad" style="background:transparent; padding:104px 38px 104px;">
+    <div style="max-width:1120px; margin:0 auto;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:48px;">
+        <div>
+          <div style="display:inline-flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <span style="width:26px; height:1px; background:var(--accent);"></span>
+            <span style="font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--accent);">{{ t.events_kicker }}</span>
+          </div>
+          <h2 style="margin:0; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(34px,4vw,46px); letter-spacing:2px; color:#1a1714;">{{ t.events_title }}</h2>
+        </div>
+        <a href="#" style="display:inline-flex; align-items:center; gap:8px; padding:12px 21px; background:#fdfbf7; border:1px solid rgba(176,132,54,0.5); color:var(--accentDeep); text-decoration:none; border-radius:3px; font-size:14px; letter-spacing:.5px;">{{ t.ev_cal }} <span style="color:var(--accent);">→</span></a>
+      </div>
+
+      <!-- 法會修持 -->
+      <div style="margin-bottom:52px;">
+        <h3 style="margin:0 0 8px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:25px; letter-spacing:1px; color:#1a1714;">{{ t.ev_dharma_title }}</h3>
+        <p style="margin:0 0 22px; font-size:14.5px; line-height:1.7; color:#7a7468; max-width:680px;">{{ t.ev_dharma_intro }}</p>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <sc-for list="{{ t.ev_dharma_groups }}" as="g" hint-placeholder-count="4">
+            <div class="ev-grouprow" style="display:grid; grid-template-columns:150px 1fr; gap:18px; align-items:start; background:#fdfbf7; border:1px solid rgba(26,23,20,0.08); border-radius:5px; padding:18px 22px;">
+              <span style="font-family:'Noto Serif TC',serif; font-size:16px; color:var(--accentDeep); letter-spacing:1px; padding-top:3px;">{{ g.label }}</span>
+              <span style="display:flex; flex-wrap:wrap; gap:8px;">
+                <sc-for list="{{ g.items }}" as="i"><span style="font-size:13.5px; color:#3a352e; background:#f2ece1; border:1px solid rgba(176,132,54,0.25); padding:5px 13px; border-radius:20px; letter-spacing:.5px;">{{ i }}</span></sc-for>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- 課程講座 -->
+      <div style="margin-bottom:52px;">
+        <h3 style="margin:0 0 8px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:25px; letter-spacing:1px; color:#1a1714;">{{ t.ev_course_title }}</h3>
+        <p style="margin:0 0 22px; font-size:14.5px; line-height:1.7; color:#7a7468;">{{ t.ev_course_intro }}</p>
+        <div class="ev-2col" style="display:grid; grid-template-columns:repeat(2,1fr); gap:18px;">
+          <sc-for list="{{ t.ev_courses }}" as="c" hint-placeholder-count="2">
+            <div style="background:#fdfbf7; border:1px solid rgba(26,23,20,0.08); border-radius:5px; padding:24px 26px;">
+              <h4 style="margin:0 0 10px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:20px; color:#1a1714; letter-spacing:1px;">{{ c.name }}</h4>
+              <div style="display:flex; align-items:center; gap:9px; flex-wrap:wrap;">
+                <span style="font-size:13.5px; color:#5e584e;">{{ c.teacher }}</span>
+                <span style="font-size:12px; color:#fff; background:var(--accent); padding:2px 11px; border-radius:20px; letter-spacing:.5px;">{{ c.lang }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- 社區活動 -->
+      <div>
+        <h3 style="margin:0 0 8px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:25px; letter-spacing:1px; color:#1a1714;">{{ t.ev_comm_title }}</h3>
+        <p style="margin:0 0 22px; font-size:14.5px; line-height:1.7; color:#7a7468;">{{ t.ev_comm_intro }}</p>
+        <div class="ev-3col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+          <sc-for list="{{ t.ev_comm }}" as="c" hint-placeholder-count="3">
+            <div style="background:#fdfbf7; border:1px solid rgba(26,23,20,0.08); border-radius:5px; padding:24px 26px; display:flex; flex-direction:column;">
+              <h4 style="margin:0 0 10px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:19px; color:#1a1714; letter-spacing:1px;">{{ c.name }}</h4>
+              <p style="margin:0; font-size:13.5px; line-height:1.72; color:#5e584e;">{{ c.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ TOUR ============ -->
+  <sc-if value="{{ isHome }}">
+
+  <!-- ============ TOUR ============ -->
+  <section id="tour" style="background:transparent; padding:0;">
+    <div class="tour-grid" style="display:grid; grid-template-columns:1fr 1fr; min-height:600px;">
+      <div class="tour-text" style="display:flex; flex-direction:column; justify-content:center; padding:96px clamp(38px,6vw,96px);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+          <span style="font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--accent);">{{ t.tour_kicker }}</span>
+        </div>
+        <h2 style="margin:0 0 24px; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(34px,4vw,48px); letter-spacing:2px; line-height:1.15; color:#1a1714;">{{ t.tour_title }}</h2>
+        <p style="margin:0 0 34px; font-size:16px; line-height:1.92; color:#544e45; max-width:460px;">{{ t.tour_desc }}</p>
+        <a href="#" style="align-self:flex-start; display:inline-flex; align-items:center; gap:10px; padding:14px 28px; background:#1a1714; color:#faf8f4; font-size:15px; text-decoration:none; border-radius:2px; letter-spacing:1px;">{{ t.tour_cta }} <span style="color:var(--accent);">→</span></a>
+      </div>
+      <div style="position:relative; background-image:url('assets/facade-door.jpg'); background-size:cover; background-position:center; min-height:460px;">
+        <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(250,248,244,0.5) 0%, rgba(250,248,244,0) 22%);"></div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ FOUNDER (page) ============ -->
+  <sc-if value="{{ isFounder }}">
+  <section id="founder" style="position:relative; background:#14110d; color:#e9e0d2; padding:74px 0 0; overflow:hidden;">
+    <div class="founder-grid" style="display:grid; grid-template-columns:0.92fr 1.08fr; align-items:stretch;">
+      <div class="founder-imgcol" style="position:relative; min-height:560px;">
+        <div style="position:absolute; inset:0; background:radial-gradient(58% 55% at 30% 48%, rgba(176,132,54,0.24) 0%, rgba(20,17,13,0) 66%);"></div>
+        <div class="founder-img" style="position: absolute; inset: 0; background-image: url('assets/master-seated.jpg'); background-size: cover; background-position: center top; background-repeat: no-repeat;"></div><span style="position: absolute; left: -44px; top: -14px; font-family: 'Noto Serif TC',serif; font-size: 62px; line-height: 1; color: var(--accent); opacity: .55">「</span>
+      </div><div class="founder-text" style="display:flex; flex-direction:column; justify-content:center; padding:96px clamp(38px,6vw,90px) 96px 40px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+          <span style="font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--accent);">{{ t.founder_kicker }}</span>
+        </div>
+        <p style="margin:0 0 6px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:clamp(30px,3.4vw,40px); letter-spacing:3px; color:#fbf6ec;">{{ t.founder_name }}</p>
+        <p style="margin:0 0 34px; font-size:14px; letter-spacing:2px; text-transform:uppercase; color:#9a8e78;">{{ t.founder_role }}</p>
+        <div style="position:relative; padding-left:26px; margin-bottom:30px;">
+          
+          <p style="margin:0; font-family:'Noto Serif TC',serif; font-weight:400; font-size:clamp(26px,3vw,36px); line-height:1.5; letter-spacing:2px; color:#f3ead9;">{{ t.founder_quote }}<span style="position: absolute; left: -44px; top: -14px; font-family: 'Noto Serif TC',serif; font-size: 62px; line-height: 1; color: var(--accent); opacity: .55">「</span></p>
+        </div>
+        <p style="margin:0 0 34px; font-size:15.5px; line-height:1.92; color:#bcb1a0; max-width:520px;">{{ t.founder_desc }}</p>
+        <a href="{{ t.founder_link }}" target="_blank" rel="noopener" style="align-self:flex-start; display:inline-flex; align-items:center; gap:10px; font-size:15px; color:#fbf6ec; text-decoration:none; letter-spacing:1px; padding-bottom:5px; border-bottom:1px solid var(--accent);">{{ t.founder_cta }} <span style="color:var(--accent);">→</span></a>
+      </div>
+      
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ QUICK LINKS ============ -->
+  <sc-if value="{{ isHome }}">
+  <section id="quick" class="secpad" style="background:transparent; padding:104px 38px 104px;">
+    <div style="max-width:1180px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:50px;">
+        <div style="display:inline-flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+          <span style="font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--accent);">{{ t.quick_kicker }}</span>
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+        </div>
+        <h2 style="margin:0; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(34px,4vw,46px); letter-spacing:2px; color:#1a1714;">{{ t.quick_title }}</h2>
+      </div>
+      <div class="links-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;">
+        <sc-for list="{{ t.links }}" as="l" hint-placeholder-count="4">
+          <a href="#" style="display:flex; flex-direction:column; padding:34px 26px 30px; background:#fdfbf7; border:1px solid rgba(26,23,20,0.09); border-radius:3px; text-decoration:none; color:#1a1714; min-height:200px;">
+            <span style="font-family:'Cormorant Garamond',serif; font-size:15px; color:var(--accent); letter-spacing:1px; margin-bottom:auto;">{{ l.idx }}</span>
+            <h3 style="margin:0 0 10px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:21px; letter-spacing:1px;">{{ l.label }}</h3>
+            <p style="margin:0 0 16px; font-size:13.5px; line-height:1.6; color:#6a635a;">{{ l.desc }}</p>
+            <span style="color:var(--accent); font-size:17px;">→</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ VOLUNTEER (page) ============ -->
+  <sc-if value="{{ isVolunteer }}">
+  <section id="volunteer" class="secpad" style="background:transparent; padding:104px 38px 104px;">
+    <div style="max-width:1080px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:16px;">
+        <div style="display:inline-flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+          <span style="font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--accent);">{{ t.vol_kicker }}</span>
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+        </div>
+        <h2 style="margin:0; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(34px,4vw,46px); letter-spacing:2px; color:#1a1714;">{{ t.vol_title }}</h2>
+      </div>
+      <p style="text-align:center; max-width:640px; margin:0 auto 52px; font-size:15.5px; line-height:1.85; color:#6a635a;">{{ t.vol_intro }}</p>
+      <div style="display:flex; flex-direction:column; gap:22px;">
+        <sc-for list="{{ volGroups }}" as="g" hint-placeholder-count="9">
+          <div class="vol-row" style="display:grid; grid-template-columns:300px 1fr; background:#fdfbf7; border:1px solid rgba(26,23,20,0.08); border-radius:6px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,0.03);">
+            <div style="min-height:190px; background:{{ g.bg }}; display:flex; align-items:flex-end; justify-content:flex-start; padding:16px;">
+              <span style="font-family:monospace; font-size:11px; letter-spacing:1.5px; color:rgba(255,255,255,0.82);">義工照片 · photo</span>
+            </div>
+            <div style="padding:28px 32px; display:flex; flex-direction:column; justify-content:center;">
+              <h3 style="margin:0 0 10px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:23px; letter-spacing:1.5px; color:#1a1714;">{{ g.name }}</h3>
+              <p style="margin:0; font-size:14.5px; line-height:1.85; color:#5e584e;">{{ g.desc }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ DONATE (page) ============ -->
+  <sc-if value="{{ isDonate }}">
+  <section id="donate" class="secpad" style="background:transparent; padding:104px 38px 104px;">
+    <div style="max-width:1060px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:46px;">
+        <div style="display:inline-flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+          <span style="font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--accent);">{{ t.donate_kicker }}</span>
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+        </div>
+        <h2 style="margin:0 0 10px; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(34px,4vw,46px); letter-spacing:2px; color:#1a1714;">{{ t.donate_title }}</h2>
+        <p style="margin:0; font-size:15px; color:#7a7468; letter-spacing:1px;">{{ t.donate_lead }}</p>
+      </div>
+
+      <!-- intro: banner + paragraph -->
+      <div style="background:#fdfbf7; border:1px solid rgba(26,23,20,0.08); border-radius:5px; overflow:hidden; margin-bottom:42px; box-shadow:0 1px 2px rgba(0,0,0,0.03);">
+        <div style="height:clamp(190px,28vw,320px); background-image:url('assets/facade-full.jpg'); background-size:cover; background-position:center 42%;"></div>
+        <p style="padding:34px clamp(24px,5vw,54px); margin:0; font-size:16px; line-height:1.95; color:#4e483f;">{{ t.donate_intro }}</p>
+      </div>
+
+      <!-- notes + action -->
+      <div class="donate-grid" style="display:grid; grid-template-columns:1.04fr 0.96fr; gap:44px; align-items:start;">
+
+        <!-- left: notes -->
+        <div>
+          <h3 style="margin:0 0 16px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:22px; letter-spacing:1px; color:#1a1714;">{{ t.donate_notesTitle }}</h3>
+          <div style="background:#f4efe6; border:1px solid rgba(26,23,20,0.09); border-radius:5px; padding:24px 26px;">
+            <sc-for list="{{ donateNotes }}" as="n" hint-placeholder-count="4">
+              <p style="margin:0 0 13px; font-size:14px; line-height:1.72; color:{{ n.color }};">{{ n.num }}. {{ n.text }}</p>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- right: funds + consent + buttons -->
+        <div>
+          <h3 style="margin:0 0 16px; font-family:'Noto Serif TC',serif; font-weight:600; font-size:22px; letter-spacing:1px; color:#1a1714;">{{ t.donate_fundsTitle }}</h3>
+          <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:26px;">
+            <sc-for list="{{ funds }}" as="f" hint-placeholder-count="3">
+              <button type="button" onClick="{{ f.select }}" style="display:flex; align-items:center; gap:13px; padding:15px 17px; border:{{ f.border }}; background:{{ f.bg }}; border-radius:4px; cursor:pointer; width:100%; text-align:left; font-family:inherit; transition:background .15s ease, border-color .15s ease;">
+                <span style="width:18px; height:18px; border-radius:50%; border:2px solid var(--accent); display:flex; align-items:center; justify-content:center; flex:none;">
+                  <span style="width:9px; height:9px; border-radius:50%; background:{{ f.dot }};"></span>
+                </span>
+                <span style="flex:1;">
+                  <span style="display:block; font-family:'Noto Serif TC',serif; font-size:16.5px; color:#1a1714; letter-spacing:.5px;">{{ f.label }}</span>
+                  <span style="display:block; font-size:12.5px; color:#6a635a; line-height:1.5; margin-top:3px;">{{ f.desc }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+
+          <!-- consent -->
+          <button type="button" onClick="{{ toggleConsent }}" style="display:flex; align-items:flex-start; gap:11px; cursor:pointer; margin-bottom:20px; width:100%; text-align:left; background:none; border:none; padding:0; font-family:inherit;">
+            <span style="width:21px; height:21px; border:1.5px solid var(--accent); border-radius:4px; background:{{ consentBox }}; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; flex:none; margin-top:1px;">{{ consentMark }}</span>
+            <span style="font-size:13.5px; line-height:1.6; color:#4e483f;">{{ t.donate_consent }}</span>
+          </button>
+
+          <!-- payment buttons (enabled after consent) -->
+          <a href="{{ paypalUrl }}" target="_blank" rel="noopener" style="display:flex; align-items:center; justify-content:center; gap:9px; padding:17px; background:var(--accent); color:#fff; text-decoration:none; border-radius:3px; font-size:16px; letter-spacing:1px; margin-bottom:12px; opacity:{{ payOpacity }}; pointer-events:{{ payEvents }};">{{ t.donate_paypal }} <span style="font-size:17px;">→</span></a>
+          <button onClick="{{ toggleZelle }}" style="width:100%; padding:16px; background:#1a1714; color:#faf8f4; border:none; border-radius:3px; font-size:15px; letter-spacing:1px; cursor:pointer; opacity:{{ payOpacity }}; pointer-events:{{ payEvents }}; font-family:'Noto Sans TC',sans-serif;">{{ t.donate_zelle }}</button>
+          <div style="display:{{ zelleDisplay }}; margin-top:14px; padding:18px 20px; background:#fdfbf7; border:1px dashed rgba(176,132,54,0.55); border-radius:4px; font-size:13.5px; line-height:1.75; color:#4e483f;">{{ t.donate_zelleInfo }}</div>
+
+          <p style="margin:18px 0 0; font-size:12px; line-height:1.6; color:#8c857c;">{{ t.donate_hint }}</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ SUBSCRIBE ============ -->
+  <sc-if value="{{ isHome }}">
+  <section class="secpad" style="background:linear-gradient(135deg,#1f1812 0%,#2a2014 100%); color:#f3ead9; padding:92px 38px;">
+    <div style="max-width:760px; margin:0 auto; text-align:center;">
+      <span style="font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--accent);">{{ t.sub_kicker }}</span>
+      <h2 style="margin:14px 0 14px; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(30px,3.6vw,42px); letter-spacing:2px; color:#fbf6ec;">{{ t.sub_title }}</h2>
+      <p style="margin:0 auto 32px; font-size:15.5px; line-height:1.8; color:#c4b9a6; max-width:480px;">{{ t.sub_desc }}</p>
+      <form onSubmit="{{ noSubmit }}" style="display:flex; gap:10px; max-width:480px; margin:0 auto; flex-wrap:wrap; justify-content:center;">
+        <input type="email" placeholder="{{ t.sub_ph }}" style="flex:1; min-width:240px; padding:15px 20px; background:rgba(255,255,255,0.06); border:1px solid rgba(243,234,217,0.22); border-radius:2px; color:#fbf6ec; font-size:15px; font-family:'Noto Sans TC',sans-serif; outline:none;">
+        <button type="submit" style="padding:15px 32px; background:var(--accent); color:#fff; border:none; border-radius:2px; font-size:15px; letter-spacing:1.5px; cursor:pointer; font-family:'Noto Sans TC',sans-serif;">{{ t.sub_btn }}</button>
+      </form>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ SUPPORT CTA ============ -->
+  <sc-if value="{{ isHome }}">
+  <section class="secpad" style="background:var(--accent); color:#fff; padding:96px 38px; text-align:center;">
+    <div style="max-width:720px; margin:0 auto;">
+      <h2 style="margin:0 0 24px; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(32px,3.6vw,44px); letter-spacing:8px; color:#fff;">{{ t.support_title }}</h2>
+      <p style="margin:0 auto 40px; font-family:'Noto Serif TC',serif; font-style:italic; font-size:17px; line-height:2; color:#fbf3e2; max-width:600px;">{{ t.support_text }}</p>
+      <a href="#donate" style="display:inline-block; padding:18px 62px; background:#fff; color:#1a1714; text-decoration:none; font-size:16px; letter-spacing:2px; font-weight:600; border-radius:2px;">{{ t.support_btn }}</a>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ CONTACT (page) ============ -->
+  <sc-if value="{{ isContact }}">
+  <section id="contact" class="secpad" style="background:transparent; padding:104px 38px 104px;">
+    <div style="max-width:1180px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:52px;">
+        <div style="display:inline-flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+          <span style="font-family:'Cormorant Garamond',serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--accent);">{{ t.contact_kicker }}</span>
+          <span style="width:26px; height:1px; background:var(--accent);"></span>
+        </div>
+        <h2 style="margin:0; font-family:'Noto Serif TC',serif; font-weight:500; font-size:clamp(34px,4vw,46px); letter-spacing:2px; color:#1a1714;">{{ t.contact_title }}</h2>
+      </div>
+
+      <!-- map + address / contact panel -->
+      <div class="contact-map" style="display:grid; grid-template-columns:1.15fr 0.85fr; margin-bottom:50px; border:1px solid rgba(26,23,20,0.10); border-radius:6px; overflow:hidden;">
+        <iframe title="Google map" src="https://www.google.com/maps?q=1750+Van+Ness+Ave,+San+Francisco,+CA+94109&output=embed" style="width:100%; height:100%; min-height:360px; border:0; display:block;"></iframe>
+        <div style="background:#efe7d8; padding:38px 40px; display:flex; flex-direction:column; justify-content:center;">
+          <div class="contact-map-info" style="display:grid; grid-template-columns:1fr 1fr; gap:22px 20px; margin-bottom:24px;">
+            <div>
+              <h3 style="margin:0 0 10px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accentDeep); font-weight:600;">{{ t.c_addrTitle }}</h3>
+              <p style="margin:0; font-size:14.5px; line-height:1.75; color:#3a352e;">{{ t.society }}<br>{{ t.address }}</p>
+            </div>
+            <div>
+              <h3 style="margin:0 0 10px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accentDeep); font-weight:600;">{{ t.f_contactTitle }}</h3>
+              <a href="tel:+14157766538" style="display:block; margin-bottom:7px; font-size:14.5px; color:#3a352e; text-decoration:none;">Phone: {{ t.f_phone }}</a>
+              <a href="mailto:sanbao@ibps.org" style="font-size:14.5px; color:#3a352e; text-decoration:none; border-bottom:1px solid var(--accent);">{{ t.f_email }}</a>
+            </div>
+          </div>
+          <p style="margin:0; font-size:13.5px; line-height:1.85; color:#5e584e;">{{ t.c_thanks }}</p>
+        </div>
+      </div>
+
+      <div class="contact-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:52px;">
+
+        <!-- left: reach + hours + follow -->
+        <div>
+          <h3 style="margin:0 0 16px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accentDeep); font-weight:600;">{{ t.c_reach }}</h3>
+          <p style="margin:0 0 4px; font-family:'Noto Serif TC',serif; font-size:19px; letter-spacing:1px; color:#1a1714;">{{ t.society }}</p>
+          <a href="https://maps.google.com/?q=1750+Van+Ness+Ave+San+Francisco+CA+94109" target="_blank" rel="noopener" style="display:inline-block; margin:0 0 24px; font-size:15px; line-height:1.7; color:#544e45; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px;">{{ t.address }}</a>
+
+          <h3 style="margin:0 0 10px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accentDeep); font-weight:600;">{{ t.c_hoursTitle }}</h3>
+          <p style="margin:0 0 28px; font-size:15px; color:#544e45;">{{ t.c_hoursVal }}</p>
+
+          <h3 style="margin:0 0 12px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accentDeep); font-weight:600;">{{ t.c_follow }}</h3>
+          <div style="display:flex; flex-wrap:wrap; gap:10px;">
+            <sc-for list="{{ social }}" as="s" hint-placeholder-count="3">
+              <a href="{{ s.url }}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; background:#fdfbf7; border:1px solid rgba(26,23,20,0.12); border-radius:2px; font-size:14px; color:#1a1714; text-decoration:none; letter-spacing:.5px;">{{ s.label }} <span style="color:var(--accent);">↗</span></a>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- right: related / friendly links -->
+        <div>
+          <h3 style="margin:0 0 18px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accentDeep); font-weight:600;">{{ t.c_links }}</h3>
+          <div style="border-top:1px solid rgba(26,23,20,0.12);">
+            <sc-for list="{{ friendlyLinks }}" as="f" hint-placeholder-count="6">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; padding:15px 2px; border-bottom:1px solid rgba(26,23,20,0.12);">
+                <span style="font-size:15.5px; color:#2a2620; letter-spacing:.5px;">{{ f.name }}</span>
+                <span style="display:inline-flex; gap:8px; flex-wrap:wrap;">
+                  <sc-for list="{{ f.links }}" as="l">
+                    <a href="{{ l.url }}" target="_blank" rel="noopener" style="font-size:13px; color:var(--accentDeep); text-decoration:none; border:1px solid rgba(176,132,54,0.4); padding:3px 11px; border-radius:2px; letter-spacing:.5px; white-space:nowrap;">{{ l.label }}</a>
+                  </sc-for>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer" style="background:transparent; color:#4e463a; padding:74px 38px 36px;">
+    <div style="max-width:1180px; margin:0 auto;">
+      <div class="footer-map" style="display:grid; grid-template-columns:1.15fr 0.85fr; border:1px solid rgba(26,23,20,0.10); border-radius:6px; overflow:hidden; margin-bottom:38px;">
+        <iframe title="Google map" src="https://www.google.com/maps?q=1750+Van+Ness+Ave,+San+Francisco,+CA+94109&output=embed" style="width:100%; height:100%; min-height:300px; border:0; display:block;"></iframe>
+        <div style="background:transparent; color:#3a352e; padding:36px 40px; display:flex; flex-direction:column; justify-content:center;">
+          <div class="footer-map-info" style="display:grid; grid-template-columns:1fr 1fr; gap:22px 20px; margin-bottom:22px;">
+            <div>
+              <h4 style="margin:0 0 10px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accentDeep); font-weight:600;">{{ t.c_addrTitle }}</h4>
+              <p style="margin:0; font-size:14px; line-height:1.75; color:#3a352e;">{{ t.society }}<br>{{ t.address }}</p>
+            </div>
+            <div>
+              <h4 style="margin:0 0 10px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accentDeep); font-weight:600;">{{ t.f_contactTitle }}</h4>
+              <a href="tel:+14157766538" style="display:block; margin-bottom:6px; font-size:14px; color:#3a352e; text-decoration:none;">Phone: {{ t.f_phone }}</a>
+              <a href="mailto:sanbao@ibps.org" style="font-size:14px; color:#3a352e; text-decoration:none; border-bottom:1px solid var(--accent);">{{ t.f_email }}</a>
+            </div>
+          </div>
+          <p style="margin:0; font-size:13px; line-height:1.8; color:#5e584e;">{{ t.c_thanks }}</p>
+        </div>
+      </div>
+      <div style="padding-top:24px; border-top:1px solid rgba(26,23,20,0.12); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <span style="font-family:'Noto Serif TC',serif; font-size:16px; color:#1a1714; letter-spacing:1.5px;">佛光山三寶寺</span>
+        <span style="font-size:12px; color:#8c857c;">{{ t.f_rights }}</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:3600},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Gold&quot;,&quot;Crimson&quot;],&quot;default&quot;:&quot;Gold&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;中文&quot;,&quot;English&quot;],&quot;default&quot;:&quot;中文&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { lang: null, navOpen: false, mobileSection: null, donateFund: 'build', donateConsent: false, showZelle: false, route: 'home' };
+
+  // ---- hash routing: #founder / #donate / #contact are pages; other hashes are home anchors ----
+  _routeFromHash() {
+    const h = (typeof window !== 'undefined' ? window.location.hash : '').toLowerCase();
+    if (h === '#founder') return 'founder';
+    if (h === '#donate') return 'donate';
+    if (h === '#contact') return 'contact';
+    if (h === '#events') return 'events';
+    if (h === '#volunteer') return 'volunteer';
+    return 'home';
+  }
+  componentDidMount() {
+    this._onHash = () => {
+      const route = this._routeFromHash();
+      this.setState({ route, navOpen: false, mobileSection: null }, () => {
+        const h = window.location.hash || '';
+        if (route === 'home' && h && h !== '#top') {
+          const el = document.querySelector(h);
+          if (el) { el.scrollIntoView({ behavior: 'smooth' }); return; }
+        }
+        window.scrollTo(0, 0);
+        if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+      });
+    };
+    window.addEventListener('hashchange', this._onHash);
+    this._onHash();
+  }
+  componentWillUnmount() {
+    if (this._onHash) window.removeEventListener('hashchange', this._onHash);
+  }
+
+  get TEXT() {
+    return {
+      zh: {
+        nav_home:'首頁', nav_founder:'創辦人', nav_about:'認識三寶寺', nav_events:'活動資訊',
+        nav_news:'人間報導', nav_volunteer:'義工服務', nav_donate:'護寺捐款', nav_contact:'聯絡我們',
+        sub_about:[{label:'佛光山宗旨'},{label:'三寶寺簡介'},{label:'空間導覽'},{label:'佛光會'},{label:'青年團'}],
+        sub_events:[{label:'法會修持'},{label:'課程講座'},{label:'社區活動'},{label:'寺院行事曆'}],
+        sub_news:[{label:'慈善行動'},{label:'社區關懷'},{label:'國際議題'}],
+        sub_volunteer:[{label:'加入義工'}],
+        sub_donate:[{label:'護持緣起'},{label:'光明燈登記'},{label:'線上捐款'},{label:'護持項目'}],
+        sub_contact:[{label:'地圖導引'},{label:'聯絡資訊'},{label:'聯絡表單'}],
+        heroSub:'AMERICAN BUDDHIST CULTURAL SOCIETY',
+        address:'1750 Van Ness Ave, San Francisco, CA 94109', scroll:'向下滾動',
+        news_title:'最新公告', news_kicker:'NEWS', news_more:'查看全部公告', news_detail:'更多細節',
+        news:[
+          {date:'7/12', title:'大悲懺法會', desc:'禮拜《大悲懺》，稱念觀世音菩薩聖號，懺除業障、長養慈悲，祈願眾生離苦得樂、福慧增長。', img:'assets/facade-door.jpg'},
+          {date:'8/2', title:'開光典禮 · 10am–11am', desc:'恭請諸佛菩薩聖像安座開光，廣邀十方信眾同霑法喜、共沐佛恩，為道場寫下莊嚴的一頁。', img:'assets/buddha.png'},
+          {date:'8/2', title:'三歸五戒 · 1:30pm–4pm', desc:'受持三皈依與五戒，正式成為三寶弟子，踏出學佛修行、安身立命的第一步。', img:'assets/master-seated.jpg'},
+          {date:'8/13–16', title:'梁皇寶懺', desc:'啟建《梁皇寶懺》法會，超薦先亡、消災祈福，為闔家親眷祈求平安吉祥、業障消除。', img:'assets/facade-full.jpg'}
+        ],
+        events_kicker:'EVENTS', events_title:'活動資訊',
+        ev_cal:'寺院行事曆',
+        ev_dharma_title:'法會修持',
+        ev_dharma_intro:'三寶寺定期舉辦各類法會與共修，接引大眾於誦經、禮拜與共修中安定身心。（詳細法會介紹文本將陸續更新）',
+        ev_dharma_groups:[
+          {label:'年度法會', items:['春節法會','大悲懺法會','清明法會','浴佛法會','孝道月（早晚誦持地藏經）','梁皇法會','藥師法會','彌陀法會']},
+          {label:'戒會修持', items:['三歸五戒','八關齋戒']},
+          {label:'例行共修', items:['八十八佛','阿彌陀經','金剛經','普門品']},
+          {label:'特殊法會', items:['焰口法會']}
+        ],
+        ev_course_title:'課程講座',
+        ev_course_intro:'課程介紹・授課語言・報名方式',
+        ev_courses:[
+          {name:'楞嚴經', teacher:'妙皇法師', lang:'中文'},
+          {name:'禪修班', teacher:'知季法師', lang:'英文'}
+        ],
+        ev_comm_title:'社區活動',
+        ev_comm_intro:'內容陸續更新中，歡迎大眾踴躍參與。',
+        ev_comm:[
+          {name:'VegRun', desc:'蔬食路跑，以健康環保的蔬食生活，邀請社區大眾一同響應。'},
+          {name:'Food Bank', desc:'食物銀行，集結十方愛心，關懷社區中有需要的家庭。'},
+          {name:'玩具物資收集', desc:'每年聖誕節協助消防局募集玩具與民生物資，捐贈予有需要的人。'}
+        ],
+        tour_kicker:'TEMPLE TOUR', tour_title:'寺院導覽', 
+        tour_desc:'走進范尼斯大道上的這座當代道場——簡淨的石格立面之後，是大雄寶殿、禪堂與文化講堂。讓我們引導您，於鬧市之中尋一處清涼。',
+        tour_cta:'進入導覽',
+        founder_kicker:'OUR FOUNDER', founder_title:'創辦人', founder_name:'星雲大師',
+        founder_role:'佛光山開山宗長',
+        founder_quote:'心中有佛，所見皆佛。',
+        founder_desc:'星雲大師一生倡導「人間佛教」，以文化、教育、慈善與共修弘法利生。三寶寺秉承師志，將佛法的清涼帶入舊金山的日常。',
+        founder_cta:'閱讀星雲大師法語',
+        founder_link:'https://www.fgs.org.tw/events/masterhsingyun/',
+        vol_kicker:'VOLUNTEER', vol_title:'義工服務',
+        vol_intro:'義工是道場最溫暖的力量。三寶寺設有多組義工團隊，歡迎您依興趣與專長加入，在服務中修福修慧、廣結善緣。',
+        vol_groups:[
+          {name:'佛光書局', desc:'流通佛教書籍、文物與結緣品，以書香接引大眾親近佛法。'},
+          {name:'滴水坊', desc:'提供蔬食茶點，以一杯茶、一份餐，傳遞佛門的歡喜與惜福。'},
+          {name:'大寮', desc:'護持齋堂烹調，為大眾準備清淨蔬食，成就以食弘法的因緣。'},
+          {name:'行堂', desc:'用齋時的供餐與照料，讓大眾安心受食、長養道情。'},
+          {name:'法務', desc:'協助法會的莊嚴與進行，引導信眾如法共修。'},
+          {name:'文書', desc:'負責文書記錄、文宣與資料整理，留存道場弘法的足跡。'},
+          {name:'總務', desc:'統籌庶務與場地後勤，讓各項活動順利圓滿。'},
+          {name:'環保', desc:'推動資源回收與環境整潔，落實惜福愛地球的理念。'},
+          {name:'知賓', desc:'迎賓接待、引導參訪，以親切的笑容廣結善緣。'}
+        ],
+        quick_kicker:'QUICK ACCESS', quick_title:'快速鍵',
+        links:[
+          {label:'光明燈登記', desc:'為自己與家人點一盞智慧之燈'},
+          {label:'線上捐款', desc:'護持道場，成就無量功德'},
+          {label:'加入義工', desc:'以歡喜心，服務十方來眾'},
+          {label:'道場開放時間', desc:'規劃您的參訪行程'}
+        ],
+        donate_kicker:'DONATE', donate_title:'護寺捐款', donate_lead:'線上捐款系統說明 · Online Donation',
+        donate_intro:'佛光山三寶寺是一處奉行人間佛教的菩薩道場，以文化、教育、慈善與共修弘法利生。您的每一分護持，都將匯聚成河，成就道場弘法的資糧，點亮世間的每一盞心燈。秉持「給人信心、給人歡喜、給人希望、給人方便」的精神，三寶寺設置安全便捷的線上捐款，讓十方大眾輕鬆種福田、共成無量功德。',
+        donate_notesTitle:'捐款注意事項',
+        donate_notes:[
+          {text:'線上捐款透過 PayPal 安全付款；Zelle 轉帳請依下方說明操作，款項將直接匯入美國佛教文化協會帳戶。'},
+          {text:'完成 PayPal 捐款後，系統將自動寄送電子收據至您的電子信箱。'},
+          {text:'如需開立正式捐款收據，請於捐款後來信 sanbao@ibps.org，並提供姓名、地址與捐款資訊。'},
+          {text:'選擇不具名捐款者，將視同以「三寶弟子」為捐款人，日後恕無法提供開立收據及捐款查詢服務。', warn:true}
+        ],
+        donate_fundsTitle:'選擇捐款功德項目',
+        donate_funds:[
+          {label:'建寺功德', desc:'護持道場修建與維護，成就莊嚴清淨的修行空間。'},
+          {label:'法會功德', desc:'護持法會、共修與弘法活動，廣結善緣。'},
+          {label:'隨喜功德', desc:'隨喜布施，護持道場日常運作與利生事業。'}
+        ],
+        donate_consent:'我已詳細閱讀以上注意事項，並了解捐款相關事宜，將進行捐款。',
+        donate_paypal:'以 PayPal 捐款', donate_zelle:'以 Zelle 捐款',
+        donate_zelleInfo:'Zelle 收款資訊（待補）：請於 App 中以收款 Email／電話轉帳，並於附註填寫您所選擇的功德項目與姓名。完成後可來信 sanbao@ibps.org 告知，以利開立收據。',
+        donate_hint:'捐款將於新分頁開啟 PayPal 安全頁面。請先勾選上方同意事項後，再選擇付款方式。',
+        sub_kicker:'STAY CONNECTED', sub_title:'訂閱最新消息',
+        sub_desc:'留下您的電子郵件，第一時間收到法會、講座與活動通知。',
+        sub_ph:'您的電子郵件', sub_btn:'訂閱',
+        support_title:'贊助我們',
+        support_text:'佛光山是一個行人間佛教的菩薩道場，如果您喜歡我們的宗風，認同我們的理念，歡迎您隨喜贊助。涓滴的護持將會匯集成大河，成為我們繼續前進的動力。',
+        support_btn:'線上捐款',
+        contact_kicker:'CONTACT', contact_title:'聯絡我們',
+        c_addrTitle:'地址', c_thanks:'感謝您對佛光山三寶寺的支持與愛護，如果您對網頁有任何問題，歡迎提出意見及相關問題，讓我們有機會提供給您更好的服務。',
+        c_reach:'聯絡資訊', c_follow:'追蹤我們', c_links:'友善連結',
+        c_hoursTitle:'開放時間', c_hoursVal:'週二至週六 10:00am – 4:00pm（週一休息）',
+        f_contactTitle:'聯絡方式', f_phone:'+1 415 776 6538', f_email:'sanbao@ibps.org',
+        f_hoursTitle:'開放時間', f_hoursVal:'週二至週日 10:00a.m. – 4:00p.m.（固定週一公休）',
+        f_rights:'© 2026 佛光山三寶寺　版權所有'
+      },
+      en: {
+        nav_home:'Home', nav_founder:'Founder', nav_about:'About', nav_events:'Events',
+        nav_news:'News', nav_volunteer:'Volunteer', nav_donate:'Donate', nav_contact:'Contact',
+        sub_about:[{label:'FGS Mission'},{label:'About the Temple'},{label:'Space & Grounds'},{label:'Buddha’s Light Assn.'},{label:'Youth Group'}],
+        sub_events:[{label:'Dharma Services'},{label:'Courses & Lectures'},{label:'Community Activities'},{label:'Temple Calendar'}],
+        sub_news:[{label:'Charity in Action'},{label:'Community Care'},{label:'Global Topics'}],
+        sub_volunteer:[{label:'Become a Volunteer'}],
+        sub_donate:[{label:'Why Support Us'},{label:'Light Offering'},{label:'Donate Online'},{label:'Support Projects'}],
+        sub_contact:[{label:'Directions & Map'},{label:'Contact Info'},{label:'Contact Form'}],
+        heroSub:'佛光山三寶寺',
+        society:'AMERICAN BUDDHIST CULTURAL SOCIETY', address:'1750 Van Ness Ave, San Francisco, CA 94109', scroll:'Scroll',
+        news_title:'Latest Announcements', news_kicker:'NEWS', news_more:'View all announcements', news_detail:'More details',
+        news:[
+          {date:'Jul 12', title:'Great Compassion Repentance Service', desc:'Prostrating to the Great Compassion Repentance and reciting the name of Guanyin Bodhisattva — cleansing karma and nurturing compassion for all beings.', img:'assets/facade-door.jpg'},
+          {date:'Aug 2', title:'Buddha Consecration · 10–11 AM', desc:'The consecration and enshrinement of the Buddha images — all are warmly welcome to share in the joy of the Dharma.', img:'assets/buddha.png'},
+          {date:'Aug 2', title:'Three Refuges & Five Precepts · 1:30–4 PM', desc:'Take the Three Refuges and Five Precepts to formally become a disciple — the first step on the path of practice.', img:'assets/master-seated.jpg'},
+          {date:'Aug 13–16', title:'Emperor Liang Jeweled Repentance', desc:'The Emperor Liang Repentance service — dedicating merit to the departed, dispelling misfortune and praying for the peace of the whole family.', img:'assets/facade-full.jpg'}
+        ],
+        events_kicker:'EVENTS', events_title:'Events',
+        ev_cal:'Temple Calendar',
+        ev_dharma_title:'Dharma Services & Practice',
+        ev_dharma_intro:'The temple holds Dharma services and group practice throughout the year — settling body and mind through chanting, prostration and shared cultivation. (Detailed descriptions coming soon.)',
+        ev_dharma_groups:[
+          {label:'Annual Services', items:['Lunar New Year','Great Compassion Repentance','Qingming','Bathing of the Buddha','Filial-Piety Month (Ksitigarbha Sutra)','Emperor Liang Repentance','Medicine Buddha','Amitabha']},
+          {label:'Precept Ceremonies', items:['Three Refuges & Five Precepts','Eight Precepts Retreat']},
+          {label:'Regular Practice', items:['88 Buddhas','Amitabha Sutra','Diamond Sutra','Universal Gate Chapter']},
+          {label:'Special Service', items:['Yankou (Flaming Mouth) Service']}
+        ],
+        ev_course_title:'Courses & Lectures',
+        ev_course_intro:'Course overview · language of instruction · how to register',
+        ev_courses:[
+          {name:'Shurangama Sutra', teacher:'Ven. Miao Huang', lang:'Chinese'},
+          {name:'Meditation Class', teacher:'Ven. Zhi Ji', lang:'English'}
+        ],
+        ev_comm_title:'Community Activities',
+        ev_comm_intro:'More to come — all are warmly welcome to take part.',
+        ev_comm:[
+          {name:'VegRun', desc:'A plant-based fun run promoting a healthy, eco-friendly vegetarian lifestyle with the community.'},
+          {name:'Food Bank', desc:'Gathering kindness to care for families in need across the community.'},
+          {name:'Toy & Supplies Drive', desc:'Each Christmas we help the fire department collect toys and daily goods to donate to those in need.'}
+        ],
+        tour_kicker:'TEMPLE TOUR', tour_title:'Temple Tour',
+        tour_desc:'Step inside this contemporary monastery on Van Ness Avenue. Behind the quiet stone-lattice facade lie the main shrine, the meditation hall and a cultural lecture space — a cool refuge in the midst of the city.',
+        tour_cta:'Begin the tour',
+        founder_kicker:'OUR FOUNDER', founder_title:'Our Founder', founder_name:'Venerable Master Hsing Yun',
+        founder_role:'Founder of Fo Guang Shan',
+        founder_quote:'When the Buddha is in your heart, everything you see is the Buddha.',
+        founder_desc:'Venerable Master Hsing Yun devoted his life to “Humanistic Buddhism,” spreading the Dharma through culture, education, charity and shared practice. The temple carries forward his vision, bringing the calm of the Dharma into everyday San Francisco.',
+        founder_cta:'Read the Master’s words',
+        founder_link:'https://www.fgs.org.tw/en/Founder/Overview/',
+        vol_kicker:'VOLUNTEER', vol_title:'Volunteer Service',
+        vol_intro:'Volunteers are the warmest force in the temple. Several volunteer teams welcome you to join according to your interests and skills — cultivating merit and wisdom through service.',
+        vol_groups:[
+          {name:'Fo Guang Bookstore', desc:'Sharing Buddhist books, artifacts and gifts to help people draw near to the Dharma.'},
+          {name:'Water Drop Teahouse', desc:'Serving vegetarian tea and meals — a cup of tea and a dish that share the joy of the monastery.'},
+          {name:'Kitchen (Da Liao)', desc:'Preparing pure vegetarian food for all, spreading the Dharma through the act of cooking.'},
+          {name:'Dining Service', desc:'Serving and caring for diners during meals so all may eat with ease and peace.'},
+          {name:'Dharma Service', desc:'Supporting the dignity and flow of Dharma services and guiding devotees in practice.'},
+          {name:'Documentation', desc:'Keeping records, publicity and archives — preserving the temple’s journey of spreading the Dharma.'},
+          {name:'General Affairs', desc:'Coordinating logistics and venues so every activity runs smoothly.'},
+          {name:'Environmental', desc:'Promoting recycling and cleanliness, putting care for the earth into practice.'},
+          {name:'Reception', desc:'Welcoming and guiding visitors with a warm smile, forming good affinities with all.'}
+        ],
+        quick_kicker:'QUICK ACCESS', quick_title:'Quick Access',
+        links:[
+          {label:'Light Offering', desc:'Offer a lamp of wisdom for you and your family'},
+          {label:'Donate Online', desc:'Support the temple and plant boundless merit'},
+          {label:'Become a Volunteer', desc:'Serve all who come, with a joyful heart'},
+          {label:'Visiting Hours', desc:'Plan your visit to the temple'}
+        ],
+        donate_kicker:'DONATE', donate_title:'Support the Temple', donate_lead:'Instructions for Donating Online · 線上捐款',
+        donate_intro:'Three Treasures Temple is a Humanistic Buddhist monastery serving through culture, education, charity and shared practice. Every gift, however small, gathers like drops into a great river — sustaining the Dharma and lighting a lamp in every heart. In the spirit of “giving others confidence, joy, hope and convenience,” the temple offers a safe and simple way to give online, so all may plant seeds of merit together.',
+        donate_notesTitle:'Before You Donate',
+        donate_notes:[
+          {text:'Online gifts are processed securely through PayPal; for Zelle, please follow the instructions below. All funds go directly to the American Buddhist Cultural Society.'},
+          {text:'After a PayPal donation, an electronic receipt is automatically emailed to you.'},
+          {text:'For a formal donation receipt, email sanbao@ibps.org after donating with your name, address and gift details.'},
+          {text:'Anonymous donations are recorded under “Triple Gem disciple”; receipts and donation look-ups cannot be provided afterward.', warn:true}
+        ],
+        donate_fundsTitle:'Choose a Dedication',
+        donate_funds:[
+          {label:'Temple Building', desc:'Support the building and upkeep of the temple — a serene space for practice.'},
+          {label:'Dharma Services', desc:'Support Dharma services, group practice and outreach.'},
+          {label:'Joyful Giving', desc:'Give as your heart moves you — sustaining daily operations and good works.'}
+        ],
+        donate_consent:'I have read the notes above, understand the donation terms, and wish to proceed.',
+        donate_paypal:'Donate with PayPal', donate_zelle:'Donate with Zelle',
+        donate_zelleInfo:'Zelle details (to be added): please send via the Zelle app to the temple’s recipient email/phone, noting your chosen dedication and name. Email sanbao@ibps.org afterward so we can issue a receipt.',
+        donate_hint:'PayPal opens in a new tab on a secure page. Please tick the agreement above, then choose a payment method.',
+        sub_kicker:'STAY CONNECTED', sub_title:'Subscribe',
+        sub_desc:'Leave your email to be the first to hear about ceremonies, lectures and events.',
+        sub_ph:'Your email address', sub_btn:'Subscribe',
+        support_title:'Support Us',
+        support_text:'Three Treasures Temple is a Humanistic Buddhist monastery. If you appreciate our spirit and share our vision, we warmly welcome your support. Every drop of giving gathers into a great river — the force that carries us forward.',
+        support_btn:'Donate Online',
+        contact_kicker:'CONTACT', contact_title:'Contact Us',
+        c_addrTitle:'Address', c_thanks:'Thank you for your support of Three Treasures Temple. If you have any questions about the website, we warmly welcome your feedback so we can serve you better.',
+        c_reach:'Get in touch', c_follow:'Follow Us', c_links:'Related Links',
+        c_hoursTitle:'Opening Hours', c_hoursVal:'Tue – Sat  10:00 AM – 4:00 PM (Closed Mon)',
+        f_contactTitle:'Contact', f_phone:'+1 415 776 6538', f_email:'sanbao@ibps.org',
+        f_hoursTitle:'Opening Hours', f_hoursVal:'Tue – Sun  10:00 AM – 4:00 PM (Closed Mon)',
+        f_rights:'© 2026 American Buddhist Cultural Society · Three Treasures Temple. All rights reserved.'
+      }
+    };
+  }
+
+  renderVals() {
+    const lang = this.state.lang || (this.props.defaultLang === 'English' ? 'en' : 'zh');
+    const base = this.TEXT[lang];
+    const t = { ...base, links: base.links.map((l, i) => ({ ...l, idx: String(i + 1).padStart(2, '0') })) };
+    const accent = this.props.accent === 'Crimson' ? '#8a2b2b' : '#b08436';
+    const accentDeep = this.props.accent === 'Crimson' ? '#6e1f1f' : '#8a6520';
+
+    // contact data — same in both languages (proper nouns + URLs)
+    const social = [
+      { label: 'YouTube', url: 'https://www.youtube.com/@SanBaoTemple' },
+      { label: 'Instagram', url: 'https://www.instagram.com/san.bao.temple?igsh=NTc4MTIwNjQ2YQ==' },
+      { label: 'Facebook', url: 'https://www.facebook.com/sanbaotemple/' }
+    ];
+    const friendlyLinks = [
+      { name: '佛光山全球資訊網', links: [{ label: '中文', url: 'https://www.fgs.org.tw/' }, { label: 'EN', url: 'https://www.fgs.org.tw/en/' }] },
+      { name: '佛陀紀念館', links: [{ label: '中文', url: 'https://www.fgsbmc.org.tw/tw/index.aspx' }, { label: 'EN', url: 'https://www.fgsbmc.org.tw/en/index.aspx' }] },
+      { name: '人間佛教研究院', links: [{ label: '中文', url: 'https://www.fgsihb.org/dictionary/?__locale=zh_TW' }, { label: 'EN', url: 'https://www.fgsihb.org/dictionary/?__locale=en' }] },
+      { name: '佛光山叢林學院', links: [{ label: '中文', url: 'https://tsunglin.fgs.org.tw/' }, { label: 'EN', url: 'https://www.fgs.org.tw/events/fgmonasticretreat/index.html' }] },
+      { name: '人間衛視 BLTV', links: [{ label: '中文', url: 'https://www.bltv.tv/' }, { label: 'YouTube', url: 'https://www.youtube.com/@FGSBLTV' }] },
+      { name: '人間通訊社 LNA', links: [{ label: '中英 / Bilingual', url: 'https://www.lnanews.com/home' }] }
+    ];
+
+    // volunteer group cards — placeholder photo gradients cycle by index
+    const VOL_BG = [
+      'linear-gradient(135deg,#a9853f,#6f5320)',
+      'linear-gradient(135deg,#8a6f57,#5b4631)',
+      'linear-gradient(135deg,#7f8169,#54563e)'
+    ];
+    const volGroups = (t.vol_groups || []).map((g, i) => ({ ...g, bg: VOL_BG[i % VOL_BG.length] }));
+
+    // mobile nav: sections + per-section accordion handlers
+    const ms = this.state.mobileSection;
+    const closeNav = () => this.setState({ navOpen: false, mobileSection: null });
+    const mk = (key, label, href, items) => {
+      const has = Array.isArray(items) && items.length > 0;
+      const open = ms === key;
+      return {
+        key, label, href, items: has ? items : [],
+        caret: has ? (open ? '–' : '+') : '',
+        subDisplay: (has && open) ? 'flex' : 'none',
+        tap: has
+          ? (e) => { e.preventDefault(); this.setState({ mobileSection: open ? null : key }); }
+          : () => closeNav()
+      };
+    };
+    const navSections = [
+      mk('home', t.nav_home, '#top', null),
+      mk('founder', t.nav_founder, '#founder', null),
+      mk('about', t.nav_about, '#tour', t.sub_about),
+      mk('events', t.nav_events, '#events', t.sub_events),
+      mk('news', t.nav_news, '#news', t.sub_news),
+      mk('volunteer', t.nav_volunteer, '#volunteer', t.sub_volunteer),
+      mk('contact', t.nav_contact, '#contact', t.sub_contact),
+      mk('donate', t.nav_donate, '#donate', t.sub_donate)
+    ];
+
+    // ----- donation state -----
+    const FUND_KEYS = ['build', 'dharma', 'joy'];
+    const funds = t.donate_funds.map((f, i) => {
+      const key = FUND_KEYS[i];
+      const sel = this.state.donateFund === key;
+      return {
+        ...f, key, sel,
+        border: sel ? '2px solid var(--accent)' : '1px solid rgba(26,23,20,0.12)',
+        bg: sel ? 'rgba(176,132,54,0.09)' : '#fdfbf7',
+        dot: sel ? 'var(--accent)' : 'transparent',
+        select: () => this.setState({ donateFund: key })
+      };
+    });
+    const donateNotes = t.donate_notes.map((n, i) => ({
+      num: i + 1, text: n.text, color: n.warn ? '#9a3b2e' : '#5e584e'
+    }));
+    const consent = this.state.donateConsent;
+    const paypalUrl = 'https://www.paypal.com/US/fundraiser/charity/2239934';
+    const route = this.state.route || 'home';
+
+    return {
+      t, lang, accent, accentDeep, social, friendlyLinks,
+      isHome: route === 'home', isFounder: route === 'founder',
+      isDonate: route === 'donate', isContact: route === 'contact',
+      isEvents: route === 'events', isVolunteer: route === 'volunteer',
+      volGroups,
+      funds, donateNotes, paypalUrl,
+      consentBox: consent ? 'var(--accent)' : 'transparent',
+      consentMark: consent ? '✓' : '',
+      toggleConsent: () => this.setState({ donateConsent: !consent }),
+      payOpacity: consent ? '1' : '0.45',
+      payEvents: consent ? 'auto' : 'none',
+      zelleDisplay: this.state.showZelle ? 'block' : 'none',
+      toggleZelle: () => this.setState({ showZelle: !this.state.showZelle }),
+      toggleLang: () => this.setState({ lang: lang === 'zh' ? 'en' : 'zh' }),
+      navSections, closeNav,
+      navOpenDisplay: this.state.navOpen ? 'flex' : 'none',
+      burgerIcon: this.state.navOpen ? '✕' : '☰',
+      toggleNav: () => this.setState({ navOpen: !this.state.navOpen }),
+      noSubmit: (e) => e.preventDefault(),
+      zhWeight: lang === 'zh' ? 700 : 400, enWeight: lang === 'en' ? 700 : 400,
+      zhColor: lang === 'zh' ? '#1a1714' : '#9a9389',
+      enColor: lang === 'en' ? '#1a1714' : '#9a9389'
+    };
+  }
+}
+</script>
+</body>
+</html>

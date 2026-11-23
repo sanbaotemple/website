@@ -1,0 +1,15 @@
+{
+  "name": "sanbaotemple",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Fo Guang Shan San Bao Temple website",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs && live-server dist --port=8731 --no-css-inject --wait=200",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
