@@ -190,7 +190,7 @@ const zh = {
       ] },
     ] },
     founder: { title: '創辦人', lede: '星雲大師（1927 – 2023），佛光山開山祖師。', noHero: true, sections: [
-      { kind: 'fhero', bg: 'shrine-render.jpg', img: 'master.jpg', alt: '星雲大師', small: '佛光山開山祖師', name: '星雲大師' },
+      { kind: 'fhero', bg: 'shrine-render.jpg', img: 'master-gate.jpg', alt: '星雲大師', small: '佛光山開山祖師', name: '星雲大師' },
       { kind: 'bioband', name: '星雲大師', years: '1927 — 2023', body: ['星雲大師是佛光山開山宗長、國際佛光會創辦人。1927 年生於江蘇江都，12 歲出家，一生發願弘法利生，推動「人間佛教」，讓佛法走入生活、走向世界。', '大師於 2023 年 2 月 5 日圓寂，享壽 97 歲。三寶寺秉承師志，在舊金山繼續以文化、教育、慈善與共修接引大眾。'] },
       { kind: 'missions', title: '佛光山四大宗旨', lede: '大師為佛光山立下的宗旨，也是三寶寺日常的實踐。', items: [
         { title: '以文化弘揚佛法', sub: '書局、展覽與出版', imgs: ['news/2025-12-27-1/1.jpg', 'bookstore.jpg', 'news/2025-12-27-1/2.jpg'], desc: '佛光書局與「佛光山三寶寺的故事」展覽，讓走進道場的人認識佛法。' },
@@ -343,7 +343,7 @@ const en = {
       ] },
     ] },
     founder: { title: 'Founder', lede: 'Venerable Master Hsing Yun (1927 – 2023), founder of Fo Guang Shan.', noHero: true, sections: [
-      { kind: 'fhero', bg: 'shrine-render.jpg', img: 'master.jpg', alt: 'Venerable Master Hsing Yun', small: 'Founder of Fo Guang Shan', name: '星雲大師', sub: 'Venerable Master Hsing Yun' },
+      { kind: 'fhero', bg: 'shrine-render.jpg', img: 'master-gate.jpg', alt: 'Venerable Master Hsing Yun', small: 'Founder of Fo Guang Shan', name: '星雲大師', sub: 'Venerable Master Hsing Yun' },
       { kind: 'bioband', name: 'Venerable Master Hsing Yun', years: '1927 — 2023', body: ['Venerable Master Hsing Yun founded Fo Guang Shan and Buddha’s Light International Association. Born in Jiangdu, Jiangsu in 1927, he became a monk at twelve and devoted his life to Humanistic Buddhism — bringing the Dharma into daily life and to the world.', 'He passed away on February 5, 2023, at the age of 97. San Bao Temple carries his vision forward in San Francisco through culture, education, charity and shared practice.'] },
       { kind: 'missions', title: 'The Four Objectives of Fo Guang Shan', lede: 'Set by the Master for Fo Guang Shan — and practiced every day at San Bao Temple.', items: [
         { title: 'Culture', sub: 'Bookstore, exhibitions, publishing', imgs: ['news/2025-12-27-1/1.jpg', 'bookstore.jpg', 'news/2025-12-27-1/2.jpg'], desc: 'The Fo Guang Bookstore and the temple’s history exhibition welcome everyone who walks in.' },
