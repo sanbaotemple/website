@@ -628,3 +628,4 @@ footer.site a,footer.site p,footer.site li{font-weight:500}
 /* 大師的一生: gold/brown only */
 .timeline::before{background:#C5A059}
 .timeline li.here .tn{color:#7a5c22}
+.mq-track{animation-duration:140s}
