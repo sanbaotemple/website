@@ -629,3 +629,9 @@ footer.site a,footer.site p,footer.site li{font-weight:500}
 .timeline::before{background:#C5A059}
 .timeline li.here .tn{color:#7a5c22}
 .mq-track{animation-duration:140s}
+/* Mobile: Safari can collapse an aspect-ratio box whose only child is absolutely
+   positioned, hiding the founder photo. Put the image in normal flow instead. */
+@media (max-width:980px){
+  .band .media{aspect-ratio:auto;min-height:0;height:auto}
+  .band .media img{position:static;display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+}
