@@ -644,3 +644,15 @@ footer.site a,footer.site p,footer.site li{font-weight:500}
 .scratch blockquote small{line-height:1.5}
 .en .scratch[data-len="s"] blockquote{font-size:clamp(20px,1.9vw,26px)}
 .en .scratch[data-len="m"] blockquote{font-size:clamp(18px,1.6vw,22px)}
+/* EN founder hero on phones: the horizontal English lines made the vertical title
+   wider than the screen and squeezed the photo column to 0. Keep photo + 星雲大師
+   side by side and put the English lines in a row underneath. */
+@media (max-width:860px){
+  .en .fh-inner{grid-template-columns:minmax(0,1fr) auto;row-gap:0}
+  .en .fh-title{display:contents}
+  .en .fh-photo{grid-column:1;grid-row:1}
+  .en .fh-title .big{grid-column:2;grid-row:1;align-self:center;writing-mode:vertical-rl}
+  .en .fh-title .sub,.en .fh-title .small{grid-column:1/-1;writing-mode:horizontal-tb;align-self:start;padding:0}
+  .en .fh-title .sub{grid-row:2;margin-top:22px;font-family:var(--serif);font-size:22px;letter-spacing:.02em;color:var(--ink)}
+  .en .fh-title .small{grid-row:3;margin:6px 0 28px;font-size:16px;color:var(--ink-2)}
+}
