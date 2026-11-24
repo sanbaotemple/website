@@ -44,7 +44,7 @@ const calendar = [
   { d: '2027-05-02', w: '日', zh: '慧開法師佛學講座', en: 'Buddhist lecture by Ven. Hui Kai' },
   { d: '2027-05-08', w: '日', zh: '雲水浴佛車', en: 'Mobile Buddha Bathing' },
   { d: '2027-05-09', w: '日', zh: '浴佛法會（無超薦）／母親節', en: "Buddha Bathing Dharma Service / Mother's Day" },
-  { d: '2027-05-16', w: '日', zh: '佛光日──佛光山開山 61 周年（全球同步抄寫心經）', en: "Fo Guang Shan 61st Anniversary — Global Heart Sutra Transcription" },
+  { d: '2027-05-16', w: '日', zh: '佛光日──佛光山開山 61 周年（全球同步抄寫心經）', en: "Fo Guang Shan 61st Anniversary: Global Heart Sutra Transcription" },
   { d: '2027-06-13', w: '日', zh: '焰口法會', en: 'Yankou Dharma Service' },
   { d: '2027-06-20', w: '日', zh: '慶祝父親節活動', en: "Father's Day Celebration" },
   { d: '2027-07-11', w: '日', zh: '大悲懺法會（觀世音菩薩成道紀念日・無超薦）', en: 'Great Compassion Repentance Service (Enlightenment Day of Avalokitesvara)' },
@@ -125,7 +125,7 @@ const history = {
   en: [
     'San Bao Temple began in 1987 at 5499 California Street, San Francisco. Under the guidance of Venerable Master Hsing Yun, Venerable Yi Men found the site at 1750 Van Ness Avenue, and through the joint effort of Venerable Yi Qin and devotees, the Fo Guang Bookstore opened there on New Year’s Day 1991. That March 27, Venerable Yi Zhao, the temple’s new head, asked the Master for an inscription for the shrine’s red pillars: “May the Dharma of Buddha’s Light abide in San Bao Temple; may merit and peace dwell in every devotee’s home.”',
     'For more than thirty years, alongside regular practice and annual services, the temple and the BLIA San Francisco chapter have offered Buddhist lectures, home blessings, meditation classes, Chinese and English study groups, book clubs across the Bay Area, the bookstore, winter relief, free clinics, visits to senior homes and hospice care.',
-    'As the community grew, the old building could no longer serve it. At the Master’s direction, Venerable Ru Yang — head of Fo Guang Shan Northern California, overseeing San Bao Temple, Fo Guang Temple, Bodhi Temple and the Fo Li Men center — began the rebuilding.',
+    'As the community grew, the old building could no longer serve it. At the Master’s direction, Venerable Ru Yang, head of Fo Guang Shan Northern California (overseeing San Bao Temple, Fo Guang Temple, Bodhi Temple and the Fo Li Men center), began the rebuilding.',
     'After two years of work, the rebuild went to a public hearing on September 9, 2021, and was approved by San Francisco City Hall at a land-use hearing on March 14. The topping-out ceremony was held in November 2024, and the great Buddha was set in place in March 2025. The temple has now returned to 1750 Van Ness Ave to continue sharing Humanistic Buddhism.',
   ],
 };
@@ -166,7 +166,7 @@ const zh = {
       { kind: 'events', title: '年度法會', lede: '法會前兩個月開放線上登記。', limit: 6, more: { label: '全部活動', href: '/events/' } },
       { kind: 'news', title: '人間報導', limit: 6, more: { label: '全部報導', href: '/news/' } },
       { kind: 'marquee', title: '空間導覽', lede: '大雄寶殿、禪堂、庭園、書局與屋頂觀音。', more: { label: '空間導覽', href: '/tour/' }, items: ['courtyard.jpg', 'shrine-hall.jpg', 'skylight-stair.jpg', 'guanyin-upper.jpg', 'bookstore.jpg', 'rooftop-guanyin.jpg', 'buddha-bronze.jpg', 'zen-wall.jpg', 'courtyard-garden.jpg', 'exhibition.jpg', 'buddha-wood.jpg', 'facade-sky.jpg'] },
-      { kind: 'band', img: 'master-gate.jpg', alt: '星雲大師', quote: '心中有佛，所見皆佛。', who: '佛光山開山祖師　星雲大師（1927 — 2023）', body: '一生推動「人間佛教」，以文化、教育、慈善、共修弘法利生。', link: { label: '認識星雲大師', href: '/founder/' } },
+      { kind: 'band', img: 'master-gate.jpg', alt: '星雲大師', quote: '心中有佛，所見皆佛。', who: '佛光山開山祖師　星雲大師（1927–2023）', body: '一生推動「人間佛教」，以文化、教育、慈善、共修弘法利生。', link: { label: '認識星雲大師', href: '/founder/' } },
       { kind: 'scratch', title: '刮一刮，得一句法語', lede: '用手指或滑鼠刮開金箔，收下今天的一句星雲法語，也可以儲存下來。', again: '再刮一張', hint: '刮開這裡', revealLabel: '直接顯示法語', link: { label: '星雲大師全集', href: 'https://books.masterhsingyun.org/article/articlelist' } },
       { kind: 'cta', img: 'shrine-render.jpg', title: '法會登記', lede: '各場法會於法會前兩個月開放線上登記，可填寫芳名、功德項目並回報交易編號。', actions: [{ label: '線上登記', href: FORM_URL + '/' }] },
       { kind: 'faq', title: '參訪資訊', lede: '第一次來？這些是常見問題。', items: [
@@ -191,7 +191,7 @@ const zh = {
     ] },
     founder: { title: '創辦人', lede: '星雲大師（1927 – 2023），佛光山開山祖師。', noHero: true, sections: [
       { kind: 'fhero', bg: 'shrine-render.jpg', img: 'master-gate.jpg', alt: '星雲大師', small: '佛光山開山祖師', name: '星雲大師' },
-      { kind: 'bioband', name: '星雲大師', years: '1927 — 2023', body: ['星雲大師是佛光山開山宗長、國際佛光會創辦人。1927 年生於江蘇江都，12 歲出家，一生發願弘法利生，推動「人間佛教」，讓佛法走入生活、走向世界。', '大師於 2023 年 2 月 5 日圓寂，享壽 97 歲。三寶寺秉承師志，在舊金山繼續以文化、教育、慈善與共修接引大眾。'] },
+      { kind: 'bioband', name: '星雲大師', years: '1927–2023', body: ['星雲大師是佛光山開山宗長、國際佛光會創辦人。1927 年生於江蘇江都，12 歲出家，一生發願弘法利生，推動「人間佛教」，讓佛法走入生活、走向世界。', '大師於 2023 年 2 月 5 日圓寂，享壽 97 歲。三寶寺秉承師志，在舊金山繼續以文化、教育、慈善與共修接引大眾。'] },
       { kind: 'missions', title: '佛光山四大宗旨', lede: '大師為佛光山立下的宗旨，也是三寶寺日常的實踐。', items: [
         { title: '以文化弘揚佛法', sub: '書局、展覽與出版', imgs: ['news/2025-12-27-1/1.jpg', 'bookstore.jpg', 'news/2025-12-27-1/2.jpg'], desc: '佛光書局與「佛光山三寶寺的故事」展覽，讓走進道場的人認識佛法。' },
         { title: '以教育培養人才', sub: '中英文佛學課程', imgs: ['news/2026-01-26-2/1.jpg', 'news/2025-12-14-1/1.jpg', 'news/2026-06-14-2/1.jpg'], desc: '中英文佛學課程與講座，接引不同語言的學佛者。', href: '/events/#classes', link: '課程講座' },
@@ -285,7 +285,7 @@ const zh = {
 
 // ---------------- English ----------------
 const en = {
-  site: { ...site, name: 'Fo Guang Shan San Bao Temple', society: 'American Buddhist Cultural Society', address: '1750 Van Ness Ave, San Francisco, CA 94109', hours: 'Tue – Sun, 10 AM – 4 PM (closed Mon)', desc: 'Fo Guang Shan San Bao Temple on Van Ness Avenue, San Francisco — Dharma services, classes, community care and volunteering.' },
+  site: { ...site, name: 'Fo Guang Shan San Bao Temple', society: 'American Buddhist Cultural Society', address: '1750 Van Ness Ave, San Francisco, CA 94109', hours: 'Tue – Sun, 10 AM – 4 PM (closed Mon)', desc: 'Fo Guang Shan San Bao Temple on Van Ness Avenue, San Francisco: Dharma services, classes, community care and volunteering.' },
   ui: { register: 'Register', registerShort: 'Register', registerOnline: 'Register online', registering: 'Open', donate: 'Donate', calendar: 'Calendar', nextService: 'Next service', opensOn: d => `Registration opens ${new Date(d + 'T12:00').toLocaleString('en-US', { month: 'short', day: 'numeric' })}`, byPhone: 'Register by phone', menu: 'Menu', mainNav: 'Main', skip: 'Skip to content', visit: 'Visit', contact: 'Contact', friends: 'Related sites', date: 'Date', event: 'Event', older: 'Older', newer: 'Newer', poster: 'Poster', close: 'Close', open: 'Register online', prev: 'Previous', next: 'Next', save: 'Save this saying', signup: 'Sign up', signupSoon: 'Sign-up link coming soon', courseCount: n => `${n} class${n > 1 ? 'es' : ''}`, newsInChinese: 'Stories are published in Chinese.' },
   eventInfo, eventFallbackImg: 'shrine-hall.jpg',
   calendar, friends: friends.en,
@@ -319,8 +319,8 @@ const en = {
       { kind: 'events', title: 'Annual services', lede: 'Online registration opens two months before each service.', limit: 6, more: { label: 'All events', href: '/events/' } },
       { kind: 'news', title: 'News', lede: 'Stories are published in Chinese.', limit: 6, more: { label: 'All stories', href: '/news/' } },
       { kind: 'marquee', title: 'Temple tour', lede: 'Shrine hall, meditation hall, courtyard, bookstore and the rooftop Guanyin.', more: { label: 'Temple tour', href: '/tour/' }, items: ['courtyard.jpg', 'shrine-hall.jpg', 'skylight-stair.jpg', 'guanyin-upper.jpg', 'bookstore.jpg', 'rooftop-guanyin.jpg', 'buddha-bronze.jpg', 'zen-wall.jpg', 'courtyard-garden.jpg', 'exhibition.jpg', 'buddha-wood.jpg', 'facade-sky.jpg'] },
-      { kind: 'band', img: 'master-gate.jpg', alt: 'Venerable Master Hsing Yun', quote: 'When the Buddha is in your heart, everything you see is the Buddha.', who: 'Venerable Master Hsing Yun · 1927 — 2023', link: { label: 'About the founder', href: '/founder/' } },
-      { kind: 'scratch', title: 'Scratch for a saying', lede: 'Scratch away the gold foil to reveal today’s words — and save it if you like.', again: 'Another one', hint: 'Scratch here', revealLabel: 'Show the saying', link: { label: 'Complete Works of Master Hsing Yun', href: 'https://books.masterhsingyun.org/article/articlelist' } },
+      { kind: 'band', img: 'master-gate.jpg', alt: 'Venerable Master Hsing Yun', quote: 'When the Buddha is in your heart, everything you see is the Buddha.', who: 'Venerable Master Hsing Yun · 1927–2023', link: { label: 'About the founder', href: '/founder/' } },
+      { kind: 'scratch', title: 'Scratch for a saying', lede: 'Scratch away the gold foil to reveal today’s words, and save it if you like.', again: 'Another one', hint: 'Scratch here', revealLabel: 'Show the saying', link: { label: 'Complete Works of Master Hsing Yun', href: 'https://books.masterhsingyun.org/article/articlelist' } },
       { kind: 'cta', img: 'shrine-render.jpg', title: 'Register for a service', lede: 'Online registration opens two months before each Dharma service.', actions: [{ label: 'Register online', href: FORM_URL + '/' }] },
       { kind: 'faq', title: 'Plan a visit', lede: 'First time here? Start with these.', items: [
         { q: 'When is the temple open?', a: 'Tuesday – Sunday, 10 AM – 4 PM. Closed Mondays. Service days follow the calendar.', href: '/events/#calendar', link: 'Temple calendar' },
@@ -333,7 +333,7 @@ const en = {
   },
   footer: { cta: 'You are welcome here.', visit: 'Plan a visit', rights: '© 2026 Fo Guang Shan San Bao Temple' },
   pages: {
-    about: { title: 'About', lede: 'A Humanistic Buddhist temple — culture, education, charity and shared practice.', banner: 'facade-golden.jpg', sections: [
+    about: { title: 'About', lede: 'A Humanistic Buddhist temple: culture, education, charity and shared practice.', banner: 'facade-golden.jpg', sections: [
       { id: 'temple', kind: 'split', title: 'History', body: history.en, img: 'sign.jpg' },
       { id: 'design', kind: 'split', reverse: true, title: 'Design', body: 'The new temple was designed by SOM. Its stone-lattice facade draws in daylight; inside, wood, courtyards and light wells create calm in the middle of the city.\n\nSince 2026, SOM design partner Craig Hartman has returned with colleagues and students to share how the building answers the needs of practitioners and neighbours.', img: 'som-rendering.jpg', actions: [{ label: 'SOM project page', href: 'https://www.som.com/projects/american-buddhist-cultural-society/', style: 'btn-ghost' }] },
       { id: 'fgs', kind: 'split', title: 'Fo Guang Shan', body: 'To propagate the Dharma through culture\nTo nurture talent through education\nTo benefit society through charity\nTo purify hearts and minds through practice', img: 'sutra-copying.jpg', actions: [{ label: 'About Fo Guang Shan', href: 'https://www.fgs.org.tw/en', style: 'btn-ghost' }] },
@@ -344,8 +344,8 @@ const en = {
     ] },
     founder: { title: 'Founder', lede: 'Venerable Master Hsing Yun (1927 – 2023), founder of Fo Guang Shan.', noHero: true, sections: [
       { kind: 'fhero', bg: 'shrine-render.jpg', img: 'master-gate.jpg', alt: 'Venerable Master Hsing Yun', small: 'Founder of Fo Guang Shan', name: '星雲大師', sub: 'Venerable Master Hsing Yun' },
-      { kind: 'bioband', name: 'Venerable Master Hsing Yun', years: '1927 — 2023', body: ['Venerable Master Hsing Yun founded Fo Guang Shan and Buddha’s Light International Association. Born in Jiangdu, Jiangsu in 1927, he became a monk at twelve and devoted his life to Humanistic Buddhism — bringing the Dharma into daily life and to the world.', 'He passed away on February 5, 2023, at the age of 97. San Bao Temple carries his vision forward in San Francisco through culture, education, charity and shared practice.'] },
-      { kind: 'missions', title: 'The Four Objectives of Fo Guang Shan', lede: 'Set by the Master for Fo Guang Shan — and practiced every day at San Bao Temple.', items: [
+      { kind: 'bioband', name: 'Venerable Master Hsing Yun', years: '1927–2023', body: ['Venerable Master Hsing Yun founded Fo Guang Shan and Buddha’s Light International Association. Born in Jiangdu, Jiangsu in 1927, he became a monk at twelve and devoted his life to Humanistic Buddhism, bringing the Dharma into daily life and to the world.', 'He passed away on February 5, 2023, at the age of 97. San Bao Temple carries his vision forward in San Francisco through culture, education, charity and shared practice.'] },
+      { kind: 'missions', title: 'The Four Objectives of Fo Guang Shan', lede: 'Set by the Master for Fo Guang Shan and practiced every day at San Bao Temple.', items: [
         { title: 'Culture', sub: 'Bookstore, exhibitions, publishing', imgs: ['news/2025-12-27-1/1.jpg', 'bookstore.jpg', 'news/2025-12-27-1/2.jpg'], desc: 'The Fo Guang Bookstore and the temple’s history exhibition welcome everyone who walks in.' },
         { title: 'Education', sub: 'Classes in Chinese and English', imgs: ['news/2026-01-26-2/1.jpg', 'news/2025-12-14-1/1.jpg', 'news/2026-06-14-2/1.jpg'], desc: 'Buddhist classes and talks in Chinese and English.', href: '/events/#classes', link: 'Classes' },
         { title: 'Charity', sub: 'Caring for the community', imgs: ['news/2025-12-20-1/1.jpg', 'news/2025-12-18-1/1.jpg', 'news/2026-03-14-1/1.jpg'], desc: 'Food bank shifts, Christmas toy drives and street clean-ups across San Francisco.', href: '/events/#community', link: 'Community' },
@@ -361,7 +361,7 @@ const en = {
         { year: '1992', title: 'Buddha’s Light International Association world headquarters founded' },
         { year: '2023', title: 'Passed away on February 5, aged 97' },
       ] },
-      { kind: 'scratch', title: 'Scratch for a saying', lede: 'Reveal a saying from Master Hsing Yun — and save it if you like.', again: 'Another one', hint: 'Scratch here', revealLabel: 'Show the saying', link: { label: 'Complete Works of Master Hsing Yun', href: 'https://books.masterhsingyun.org/article/articlelist' } },
+      { kind: 'scratch', title: 'Scratch for a saying', lede: 'Reveal a saying from Master Hsing Yun, and save it if you like.', again: 'Another one', hint: 'Scratch here', revealLabel: 'Show the saying', link: { label: 'Complete Works of Master Hsing Yun', href: 'https://books.masterhsingyun.org/article/articlelist' } },
       { kind: 'linkrow', items: [{ label: 'Memorial site', href: 'https://www.fgs.org.tw/en/Founder/Overview/' }, { label: 'Complete Works', href: 'https://books.masterhsingyun.org/article/articlelist' }] },
     ] },
     events: { title: 'Events', lede: 'Dharma services, classes and community events, all year round.', sections: [
@@ -374,7 +374,7 @@ const en = {
         { date: 'Week 5', title: 'Universal Gate Chapter of Avalokitesvara', href: 'https://tinyurl.com/d7r4pn7z' },
       ] },
       { id: 'precepts', kind: 'tiles', title: 'Precepts', items: [
-        { title: 'Three Refuges & Five Precepts', meta: 'Registration opening soon', desc: 'Take refuge in the Buddha, Dharma and Sangha, and undertake the five precepts — formally becoming a Buddhist.', img: 'news/2026-06-14-2/1.jpg' },
+        { title: 'Three Refuges & Five Precepts', meta: 'Registration opening soon', desc: 'Take refuge in the Buddha, Dharma and Sangha, and undertake the five precepts to formally become a Buddhist.', img: 'news/2026-06-14-2/1.jpg' },
         { title: 'Eight Precepts Retreat', meta: 'Registration opening soon', desc: 'Lay practitioners keep eight precepts for one day and night, tasting the pure life of a monastic.', img: 'sutra-copying.jpg' },
       ] },
       { id: 'classes', kind: 'courses', title: 'Classes', lede: 'Open a group to see classes and how to sign up.', groups: [

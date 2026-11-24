@@ -482,7 +482,6 @@ footer.site h4{font-size:16px;letter-spacing:0;text-transform:none;font-family:v
 .mission h3{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-family:var(--serif)}
 .mission .mt{font-size:clamp(21px,2vw,26px);font-weight:600}
 .mission .ms{font-size:16px;color:var(--gold-2);font-weight:500}
-.mission .ms::before{content:"—— "}
 .mstrip{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:8px}
 .mstrip div{aspect-ratio:4/3;overflow:hidden;border-radius:var(--r-sm);background:var(--paper-2)}
 .mstrip div:first-child{grid-row:span 1}
@@ -644,15 +643,18 @@ footer.site a,footer.site p,footer.site li{font-weight:500}
 .scratch blockquote small{line-height:1.5}
 .en .scratch[data-len="s"] blockquote{font-size:clamp(20px,1.9vw,26px)}
 .en .scratch[data-len="m"] blockquote{font-size:clamp(18px,1.6vw,22px)}
-/* EN founder hero on phones: the horizontal English lines made the vertical title
-   wider than the screen and squeezed the photo column to 0. Keep photo + 星雲大師
-   side by side and put the English lines in a row underneath. */
+/* EN founder hero: same layout as 中文 — photo, vertical 星雲大師, and the English
+   lines as vertical columns beside it (they were horizontal, which widened the title
+   past the photo on desktop and squeezed the photo to 0 on phones). */
+.en .fh-title .small,.en .fh-title .sub{writing-mode:vertical-rl;align-self:flex-start;padding-top:.4em}
+.en .fh-title .small{order:1;font-family:var(--sans);font-size:clamp(14px,1.2vw,17px);font-weight:500;letter-spacing:.14em;color:var(--ink-2)}
+.en .fh-title .sub{order:2;font-family:var(--serif);font-size:clamp(20px,2.4vw,34px);font-weight:600;letter-spacing:.06em;color:var(--ink)}
+.en .fh-title .big{order:3}
 @media (max-width:860px){
-  .en .fh-inner{grid-template-columns:minmax(0,1fr) auto;row-gap:0}
-  .en .fh-title{display:contents}
-  .en .fh-photo{grid-column:1;grid-row:1}
-  .en .fh-title .big{grid-column:2;grid-row:1;align-self:center;writing-mode:vertical-rl}
-  .en .fh-title .sub,.en .fh-title .small{grid-column:1/-1;writing-mode:horizontal-tb;align-self:start;padding:0}
-  .en .fh-title .sub{grid-row:2;margin-top:22px;font-family:var(--serif);font-size:22px;letter-spacing:.02em;color:var(--ink)}
-  .en .fh-title .small{grid-row:3;margin:6px 0 28px;font-size:16px;color:var(--ink-2)}
+  .en .fh-title{gap:10px}
+  .en .fh-title .sub{font-size:16px;letter-spacing:.03em}
+  .en .fh-title .small{font-size:11px;letter-spacing:.1em}
 }
+/* founder: keep "The Four Objectives of Fo Guang Shan" on one line on desktop */
+.sec:has(.missions) .sec-head .h2{font-size:clamp(28px,3.4vw,46px)}
+@media (min-width:861px){.sec:has(.missions) .sec-head .h2{white-space:nowrap}}
