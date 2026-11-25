@@ -658,3 +658,7 @@ footer.site a,footer.site p,footer.site li{font-weight:500}
 /* founder: keep "The Four Objectives of Fo Guang Shan" on one line on desktop */
 .sec:has(.missions) .sec-head .h2{font-size:clamp(28px,3.4vw,46px)}
 @media (min-width:861px){.sec:has(.missions) .sec-head .h2{white-space:nowrap}}
+/* English pages: Noto Serif TC draws ’ ‘ “ ” full-width ("Buddha’ s").
+   Take only those four characters from a Latin serif. */
+@font-face{font-family:"Latin Quotes";src:local("Georgia"),local("Times New Roman"),local("Noto Serif"),local("DejaVu Serif");unicode-range:U+2018-201D}
+.en{--serif:"Latin Quotes","Noto Serif TC","Songti TC",serif}
