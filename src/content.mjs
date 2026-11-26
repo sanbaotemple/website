@@ -20,7 +20,7 @@ const site = {
 const calendar = [
   { d: '2026-12-19', to: '20', w: '六–日', zh: '彌陀法會', en: 'Amitabha Buddha Dharma Service' },
   { d: '2026-12-27', w: '日', zh: '護法委員功德回向法會', en: 'Dharma Protectors Merit Dedication Service' },
-  { d: '2027-01-03', w: '日', zh: '春節出普坡（大掃除）', en: 'Temple Spring Cleaning Day' },
+  { d: '2027-01-09', w: '六', zh: '春節出普坡（大掃除）', en: 'Temple Spring Cleaning Day' },
   { d: '2027-01-10', w: '日', zh: '佛陀成道紀念日－法寶節', en: 'Shakyamuni Buddha Enlightenment Day' },
   { d: '2027-01-15', w: '五', zh: '法寶節正日', en: 'Dharma Day' },
   { d: '2027-01-17', w: '日', zh: '2026 年光明燈圓燈法會（無超薦）', en: 'Completion of 2026 Light Offering Dharma Service' },
@@ -139,7 +139,7 @@ const zh = {
   nav: [
     { label: '認識三寶寺', href: '/about/', sub: [{ label: '建寺緣起', href: '/about/#temple' }, { label: '設計理念', href: '/about/#design' }, { label: '佛光山宗旨', href: '/about/#fgs' }, { label: '佛光會・青年團', href: '/about/#blia' }] },
     { label: '空間導覽', href: '/tour/' },
-    { label: '創辦人', href: '/founder/' },
+    { label: '開山祖師', href: '/founder/' },
     { label: '活動資訊', href: '/events/', sub: [{ label: '年度法會', href: '/events/#upcoming' }, { label: '每週共修', href: '/events/#weekly' }, { label: '戒會修持', href: '/events/#precepts' }, { label: '課程講座', href: '/events/#classes' }, { label: '社區活動', href: '/events/#community' }, { label: '寺院行事曆', href: '/events/#calendar' }] },
     { label: '人間報導', href: '/news/' },
     { label: '義工服務', href: '/volunteer/' },
@@ -159,9 +159,14 @@ const zh = {
         { label: '寺院行事曆', href: '/events/#calendar', img: 'rooftop-guanyin.jpg' },
       ] },
       { kind: 'notice', id: 'notice', title: '最新公告', bg: true, more: { label: '寺院行事曆', href: '/events/#calendar' }, posters: [
+        { img: 'poster-toy-drive.jpg', alt: '舊金山消防局玩具捐贈活動，即日起至 12/13' },
         { img: 'poster-amitabha.jpg', alt: '彌陀法會 12/19 – 20', href: FORM_URL + '/?event=amitabha-2026', cta: '線上登記' },
         { img: 'poster-winter.jpg', alt: '寒冬送暖：毛帽、厚襪捐贈，即日起至 12/19' },
-        { img: 'poster-sale.jpg', alt: '2027 建寺義賣，訂購至 1/24', href: 'https://docs.google.com/forms/d/e/1FAIpQLSficvpKpHrf6BsL1HyPYJyOtRYhNgSgztZyd2lK-u-VhMWwfw/viewform?usp=send_form', cta: '線上訂購' },
+        { img: 'poster-sale-2027.jpg', alt: '2027 建寺義賣，取貨 1/29 – 31、2/2 – 3', href: 'https://docs.google.com/forms/d/e/1FAIpQLSficvpKpHrf6BsL1HyPYJyOtRYhNgSgztZyd2lK-u-VhMWwfw/viewform?usp=send_form', cta: '線上訂購' },
+        { img: 'poster-sutra-copying.jpg', alt: '建寺功德抄經迴向，至 2027 春季', href: 'https://docs.google.com/forms/d/e/1FAIpQLSdDIl4ZjhSyIPgwt0dynDn2_yg2IEKCvZLPZhLPFydg13tAvg/viewform', cta: '線上登記' },
+        { img: 'poster-supplies.jpg', alt: '物資功德募款，請電洽 415-776-6538' },
+        { img: 'poster-tea-chan.jpg', alt: '茶禪：一杯茶中的正念', href: 'https://docs.google.com/forms/d/e/1FAIpQLSeafy0-W-f1pxyuWuxwqGxfR5h-P_I7fNzq2QUvVubb6R5jvQ/viewform', cta: '報名' },
+        { img: 'poster-meditation-class.jpg', alt: '英文禪修 1:30 pm、英文佛學 2:40 pm', href: 'https://docs.google.com/forms/d/e/1FAIpQLScKlh5vphZF2ZpKhvKjNCNQD5jCPhk0FRsDU5aXruvUbbUP_w/viewform', cta: '報名' },
       ] },
       { kind: 'events', title: '年度法會', lede: '法會前兩個月開放線上登記。', limit: 6, more: { label: '全部活動', href: '/events/' } },
       { kind: 'news', title: '人間報導', limit: 6, more: { label: '全部報導', href: '/news/' } },
@@ -189,7 +194,7 @@ const zh = {
         { title: '佛光青年團', desc: '青年學佛、服務與交流。', href: 'https://www.sfyad.org/about', img: 'news/2026-04-25-1/1.jpg' },
       ] },
     ] },
-    founder: { title: '創辦人', lede: '星雲大師（1927 – 2023），佛光山開山祖師。', noHero: true, sections: [
+    founder: { title: '開山祖師', lede: '星雲大師（1927 – 2023），佛光山開山祖師。', noHero: true, sections: [
       { kind: 'fhero', bg: 'shrine-render.jpg', img: 'master-gate.jpg', alt: '星雲大師', small: '佛光山開山祖師', name: '星雲大師' },
       { kind: 'bioband', name: '星雲大師', years: '1927–2023', body: ['星雲大師是佛光山開山宗長、國際佛光會創辦人。1927 年生於江蘇江都，12 歲出家，一生發願弘法利生，推動「人間佛教」，讓佛法走入生活、走向世界。', '大師於 2023 年 2 月 5 日圓寂，享壽 97 歲。三寶寺秉承師志，在舊金山繼續以文化、教育、慈善與共修接引大眾。'] },
       { kind: 'missions', title: '佛光山四大宗旨', lede: '大師為佛光山立下的宗旨，也是三寶寺日常的實踐。', items: [
@@ -225,15 +230,15 @@ const zh = {
         { title: '八關齋戒', meta: '報名即將開放', desc: '在家信眾於一日一夜之中受持八條戒律，體驗出家清淨生活，種下出世善根。', img: 'sutra-copying.jpg' },
       ] },
       { id: 'classes', kind: 'courses', title: '課程講座', lede: '點選類別查看課程與報名方式。', groups: [
-        { title: '禪修課程', img: 'news/2026-01-18-1/1.jpg', items: [{ title: '禪修' }, { title: '茶禪' }, { title: '抄經' }] },
-        { title: '英文佛學課程', img: 'news/2026-01-26-2/1.jpg', items: [{ title: '佛法真義', meta: '知季法師・英文授課' }] },
-        { title: '中文佛學課程', img: 'lecture.jpg', items: [
-          { title: '宗門思想', meta: '週六 1:30 pm・如揚法師' },
-          { title: '供菜培訓', meta: '週日 1:30 pm・林蔚老師' },
-          { title: '佛教藝術家', meta: '週二 7:30 pm・線上・如玄法師' },
-          { title: '妙慧童女經', meta: '週三 7:30 pm・線上・如省法師' },
-          { title: '佛法真義', meta: '週六 11:00 am・妙皇法師' },
-          { title: '學佛行儀', meta: '週六 10:00 am・知松法師' },
+        { title: '英文課程', img: 'news/2026-01-18-1/1.jpg', items: [
+          { title: '茶禪', href: 'https://docs.google.com/forms/d/e/1FAIpQLSeafy0-W-f1pxyuWuxwqGxfR5h-P_I7fNzq2QUvVubb6R5jvQ/viewform' },
+          { title: '禪修', href: 'https://docs.google.com/forms/d/e/1FAIpQLScKlh5vphZF2ZpKhvKjNCNQD5jCPhk0FRsDU5aXruvUbbUP_w/viewform' },
+          { title: '英文佛學', href: 'https://docs.google.com/forms/d/e/1FAIpQLScKlh5vphZF2ZpKhvKjNCNQD5jCPhk0FRsDU5aXruvUbbUP_w/viewform' },
+        ] },
+        { title: '中文課程', img: 'news/2026-01-26-2/1.jpg', note: '秋季課程圓滿結業，感恩因緣成就，願所學佛法化為生活中的智慧與慈悲。期待春季再續法緣，共沐法喜，同增福慧。', items: [] },
+        { title: '專題講座', img: 'lecture.jpg', count: '2 場講座', items: [
+          { title: '程恭讓', meta: '1/17（日）', status: '' },
+          { title: '洪蘭', meta: '3/28（日）', status: '' },
         ] },
       ] },
       { id: 'community', kind: 'tiles', title: '社區活動', items: [
@@ -312,9 +317,14 @@ const en = {
         { label: 'Calendar', href: '/events/#calendar', img: 'rooftop-guanyin.jpg' },
       ] },
       { kind: 'notice', id: 'notice', title: 'Announcements', bg: true, more: { label: 'Temple calendar', href: '/events/#calendar' }, posters: [
+        { img: 'poster-toy-drive.jpg', alt: 'San Francisco Firefighters Toy Drive, through Dec 13' },
         { img: 'poster-amitabha.jpg', alt: 'Amitabha Buddha Dharma Service, Dec 19 – 20', href: FORM_URL + '/?event=amitabha-2026', cta: 'Register online' },
         { img: 'poster-winter.jpg', alt: 'Share the Warmth: new beanies and thick socks, through Dec 19' },
-        { img: 'poster-sale.jpg', alt: '2027 temple-building charity sale, order by Jan 24', href: 'https://docs.google.com/forms/d/e/1FAIpQLSficvpKpHrf6BsL1HyPYJyOtRYhNgSgztZyd2lK-u-VhMWwfw/viewform?usp=send_form', cta: 'Order online' },
+        { img: 'poster-sale-2027.jpg', alt: '2027 temple-building fundraising sale, pickup Jan 29 – 31 and Feb 2 – 3', href: 'https://docs.google.com/forms/d/e/1FAIpQLSficvpKpHrf6BsL1HyPYJyOtRYhNgSgztZyd2lK-u-VhMWwfw/viewform?usp=send_form', cta: 'Order online' },
+        { img: 'poster-sutra-copying.jpg', alt: 'Sutra transcription and dedication for the temple, through spring 2027', href: 'https://docs.google.com/forms/d/e/1FAIpQLSdDIl4ZjhSyIPgwt0dynDn2_yg2IEKCvZLPZhLPFydg13tAvg/viewform', cta: 'Sign up' },
+        { img: 'poster-supplies.jpg', alt: 'Fundraising for equipment and supplies, call 415-776-6538' },
+        { img: 'poster-tea-chan.jpg', alt: 'Tea Meditation: mindfulness in every sip', href: 'https://docs.google.com/forms/d/e/1FAIpQLSeafy0-W-f1pxyuWuxwqGxfR5h-P_I7fNzq2QUvVubb6R5jvQ/viewform', cta: 'Sign up' },
+        { img: 'poster-meditation-class.jpg', alt: 'Meditation class 1:30 pm and English Buddhist class 2:40 pm', href: 'https://docs.google.com/forms/d/e/1FAIpQLScKlh5vphZF2ZpKhvKjNCNQD5jCPhk0FRsDU5aXruvUbbUP_w/viewform', cta: 'Sign up' },
       ] },
       { kind: 'events', title: 'Annual services', lede: 'Online registration opens two months before each service.', limit: 6, more: { label: 'All events', href: '/events/' } },
       { kind: 'news', title: 'News', lede: 'Stories are published in Chinese.', limit: 6, more: { label: 'All stories', href: '/news/' } },
@@ -378,15 +388,15 @@ const en = {
         { title: 'Eight Precepts Retreat', meta: 'Registration opening soon', desc: 'Lay practitioners keep eight precepts for one day and night, tasting the pure life of a monastic.', img: 'sutra-copying.jpg' },
       ] },
       { id: 'classes', kind: 'courses', title: 'Classes', lede: 'Open a group to see classes and how to sign up.', groups: [
-        { title: 'Meditation', img: 'news/2026-01-18-1/1.jpg', items: [{ title: 'Meditation' }, { title: 'Tea & Chan' }, { title: 'Sutra copying' }] },
-        { title: 'Buddhism in English', img: 'news/2026-01-26-2/1.jpg', items: [{ title: 'The True Meaning of the Dharma', meta: 'Ven. Zhi Ji · English' }] },
-        { title: 'Buddhism in Chinese', img: 'lecture.jpg', items: [
-          { title: 'Fo Guang Shan Thought', meta: 'Sat 1:30 pm · Ven. Ru Yang' },
-          { title: 'Offering-food training', meta: 'Sun 1:30 pm · Lin Wei' },
-          { title: 'Buddhist Artists', meta: 'Tue 7:30 pm · online · Ven. Ru Xuan' },
-          { title: 'Sutra of the Wise Maiden', meta: 'Wed 7:30 pm · online · Ven. Ru Xing' },
-          { title: 'The True Meaning of the Dharma', meta: 'Sat 11:00 am · Ven. Miao Huang' },
-          { title: 'Buddhist Etiquette', meta: 'Sat 10:00 am · Ven. Zhi Song' },
+        { title: 'English classes', img: 'news/2026-01-18-1/1.jpg', items: [
+          { title: 'Tea Chan', href: 'https://docs.google.com/forms/d/e/1FAIpQLSeafy0-W-f1pxyuWuxwqGxfR5h-P_I7fNzq2QUvVubb6R5jvQ/viewform' },
+          { title: 'Meditation', href: 'https://docs.google.com/forms/d/e/1FAIpQLScKlh5vphZF2ZpKhvKjNCNQD5jCPhk0FRsDU5aXruvUbbUP_w/viewform' },
+          { title: 'Buddhism in English', href: 'https://docs.google.com/forms/d/e/1FAIpQLScKlh5vphZF2ZpKhvKjNCNQD5jCPhk0FRsDU5aXruvUbbUP_w/viewform' },
+        ] },
+        { title: 'Chinese classes', img: 'news/2026-01-26-2/1.jpg', note: 'The autumn term has come to a close. Classes return in spring.', items: [] },
+        { title: 'Talks', img: 'lecture.jpg', count: '2 talks', items: [
+          { title: 'Cheng Gongrang 程恭讓', meta: 'Sun, Jan 17', status: '' },
+          { title: 'Hung Lan 洪蘭', meta: 'Sun, Mar 28', status: '' },
         ] },
       ] },
       { id: 'community', kind: 'tiles', title: 'Community', items: [
